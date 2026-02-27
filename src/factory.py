@@ -7,7 +7,6 @@ Usa Firestore como RAG de dados e API Gemini direta (Google AI Studio).
 
 from .config.settings import Settings
 from .services.filter_extractor import FilterExtractor
-from .services.ai_inference_gemini import AIInferenceServiceGemini
 from .strategies.local_strategy import LocalStrategy
 from .strategies.ai_strategy import AIStrategy
 from .agent.intent_agent import IntentAgent
@@ -41,14 +40,22 @@ class IntentAgentFactory:
         use_vertex = os.getenv('USE_VERTEX_AI', 'false').lower() == 'true'
         
         if use_vertex:
-            # Usar Vertex AI (sem limite de quota, requer billing)
-            print("✅ Usando Vertex AI (Gemini for Google Cloud API)")
-            from .services.ai_inference_vertex import AIInferenceServiceVertex
-            ai_service = AIInferenceServiceVertex(
-                project_id=settings.gcp_project_id,
-                location=settings.gcp_location,
-                credentials_path=settings.gcp_credentials_path
-            )
+            # Tentar Vertex AI (sem limite de quota, requer billing)
+            try:
+                from .services.ai_inference_vertex import AIInferenceServiceVertex
+                ai_service = AIInferenceServiceVertex(
+                    project_id=settings.gcp_project_id,
+                    location=settings.gcp_location,
+                    credentials_path=settings.gcp_credentials_path
+                )
+            except Exception:
+                # Fallback silencioso para Google AI Studio
+                api_key = os.getenv('GOOGLE_API_KEY')
+                if not api_key:
+                    raise RuntimeError("❌ Vertex AI indisponível e GOOGLE_API_KEY não encontrada")
+                print("✅ Usando Google AI Studio (limite 20/dia)")
+                from .services.ai_inference_gemini import AIInferenceServiceGemini
+                ai_service = AIInferenceServiceGemini(api_key=api_key)
         else:
             # Usar Google AI Studio (tier gratuito, limite 20/dia)
             api_key = os.getenv('GOOGLE_API_KEY')
@@ -63,6 +70,7 @@ class IntentAgentFactory:
                 )
             else:
                 print("✅ Usando Google AI Studio (limite 20/dia)")
+                from .services.ai_inference_gemini import AIInferenceServiceGemini
                 ai_service = AIInferenceServiceGemini(api_key=api_key)
         
         # Dictionary service (mappers locais de valores)

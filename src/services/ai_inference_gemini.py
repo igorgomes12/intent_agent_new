@@ -60,15 +60,14 @@ class AIInferenceServiceGemini:
                 self.model_name = m
                 break
             except Exception as e:
-                if "429" in str(e):
-                    print(f"   ⚠️  {m} — quota esgotada, tentando próximo...")
-                    continue
-                elif "404" in str(e):
+                err_str = str(e)
+                # Ignora erros de quota, indisponibilidade e modelo não encontrado
+                if any(x in err_str for x in ["429", "404", "503", "UNAVAILABLE", "RESOURCE_EXHAUSTED"]):
                     continue
                 raise
 
         if not self.model_name:
-            raise RuntimeError("❌ Quota esgotada em todos os modelos Gemini disponíveis.")
+            raise RuntimeError("❌ Todos os modelos Gemini estão indisponíveis (quota esgotada ou alta demanda).")
 
         print(f"✅ Google AI Studio inicializado (modelo: {self.model_name})")
     

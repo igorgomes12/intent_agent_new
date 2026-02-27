@@ -49,23 +49,15 @@ class AIInferenceServiceVertex:
         self.model_name = None
         for model in models_to_try:
             try:
-                # Testar se modelo está disponível
-                print(f"🔍 Testando modelo {model}...")
+                # Testar se modelo está disponível (silenciosamente)
                 self.client.models.generate_content(
                     model=model,
                     contents="test"
                 )
                 self.model_name = model
-                print(f"✅ Usando modelo: {model}")
                 break
-            except Exception as e:
-                error_str = str(e)
-                if "404" in error_str or "not found" in error_str.lower():
-                    print(f"   ❌ Modelo {model} não disponível")
-                    continue
-                else:
-                    print(f"   ⚠️  Erro ao testar {model}: {error_str[:100]}")
-                    continue
+            except Exception:
+                continue
         
         if not self.model_name:
             raise RuntimeError(
@@ -83,7 +75,7 @@ class AIInferenceServiceVertex:
             max_output_tokens=2048,
         )
         
-        print(f"✅ Vertex AI inicializado (projeto: {project_id}, região: {location})")
+        print(f"✅ Vertex AI inicializado com {self.model_name}")
     
     def infer_table_selection(self, prompt: str) -> Dict:
         """Mantido por compatibilidade."""
