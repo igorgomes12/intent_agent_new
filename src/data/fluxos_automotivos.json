@@ -1,0 +1,713 @@
+{
+  "__collections__": {
+    "fluxos_automotivos": {
+      "FLUXO_PROPOSTA_VEICULO_CRM": {
+        "flow_metadata": {
+      "flow_id": "FLUXO_PROPOSTA_VEICULO_CRM",
+      "status": "ACTIVE",
+      "description": "FLUXO DE GERAÇÃO DE PROPOSTA PARA VEÍCULOS NOVOS E USADOS",
+      "display_name": "Proposta de Compra de Veículos (CRM)",
+      "domain": "Credito/CRM",
+      "database": {
+        "type": "SYBASE",
+        "dialect": "tsql_sybase",
+        "default_schema": "dbo",
+        "date_format": "yyyy-MM-dd HH:mm:ss.SSS",
+        "date_format_example": "2020-02-01 00:00:00.000",
+        "date_format_note": "Campos do tipo datetime devem usar o formato 'yyyy-MM-dd HH:mm:ss.SSS'"
+      }
+    },
+    "tables": [
+      {
+        "table_definition": {
+          "database": "DBCRED",
+          "table_name": "TbControleGeracaoCCB",
+          "schema": "dbo",
+          "description": "Armazena o histórico de versões das propostas geradas a partir de alterações na CCB.",
+          "columns": [
+            {"name": "NuVersaoGeracaoCCB", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "NuProposta", "type": "numeric(9)", "nullable": true, "is_key_field": false},
+            {"name": "DtGeracaoCCB", "type": "datetime", "nullable": false, "is_key_field": false},
+            {"name": "CdPerfilGeracaoCCB", "type": "char(1)", "nullable": false, "is_key_field": false},
+            {"name": "CdOperadorInclusao", "type": "int", "nullable": false, "is_key_field": false},
+            {"name": "DsVersaoGeracaoCCB", "type": "varchar(20)", "nullable": false, "is_key_field": false},
+            {"name": "DtCancelamentoGeracaoCCB", "type": "datetime", "nullable": true, "is_key_field": false},
+            {"name": "CdOperadorCancelamento", "type": "int", "nullable": true, "is_key_field": false},
+            {"name": "CdAutenticacaoGeracaoCCB", "type": "varchar(20)", "nullable": false, "is_key_field": false},
+            {"name": "CdPerfilCancelamentoCCB", "type": "char(1)", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["NuVersaoGeracaoCCB"]},
+            "foreign_key_hints": [
+              {"relationship_name": "Relationship_451", "from_table": "TbProposta", "to_table": "TbControleGeracaoCCB", "column": "NuProposta"}
+            ]
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCRED",
+          "table_name": "TbEmpregoPessoaFisica",
+          "schema": "dbo",
+          "description": "Detalhes sobre o tempo de emprego e a empresa do cliente.",
+          "columns": [
+            {"name": "CdPessoaSobAnalise", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "CdSeqEmprego", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "NmRazaoSocialEmpresa", "type": "varchar", "nullable": false, "is_key_field": false},
+            {"name": "QtMesesEmprego", "type": "int", "nullable": true, "is_key_field": false},
+            {"name": "DsCargo", "type": "varchar", "nullable": true, "is_key_field": false},
+            {"name": "NmDepartamento", "type": "varchar", "nullable": true, "is_key_field": false},
+            {"name": "FlAtual", "type": "char", "nullable": false, "is_key_field": false},
+            {"name": "CdDdd", "type": "char", "nullable": true, "is_key_field": false},
+            {"name": "NuTelefoneEmprego", "type": "char", "nullable": true, "is_key_field": false},
+            {"name": "NuRamal", "type": "char", "nullable": true, "is_key_field": false},
+            {"name": "DtAdmissaoPessoa", "type": "datetime", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["CdPessoaSobAnalise", "CdSeqEmprego"]},
+            "foreign_key_hints": []
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCRED",
+          "table_name": "TbLogStatusProposta",
+          "schema": "dbo",
+          "description": "Log histórico de status das propostas.",
+          "columns": [
+            {"name": "NuProposta", "type": "numeric(9)", "nullable": false, "is_key_field": false},
+            {"name": "DtStatusProposta", "type": "datetime", "nullable": false, "is_key_field": false},
+            {"name": "StProposta", "type": "char(2)", "nullable": true, "is_key_field": false, "description": "AP - Aprovada, CA - Cancelada, CE, N"},
+            {"name": "TpFila", "type": "char(1)", "nullable": true, "is_key_field": false},
+            {"name": "CdColaboradorFila", "type": "int", "nullable": true, "is_key_field": false},
+            {"name": "NmUserBancoDados", "type": "varchar(25)", "nullable": true, "is_key_field": false},
+            {"name": "FlRespAutomatica", "type": "char(1)", "nullable": true, "is_key_field": false},
+            {"name": "NmServidor", "type": "varchar(25)", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": []},
+            "foreign_key_hints": []
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCRED",
+          "table_name": "TbPessoaFisicaSobAnalise",
+          "schema": "dbo",
+          "description": "Dados pessoais das pessoas físicas sob análise de crédito.",
+          "columns": [
+            {"name": "CdPessoaSobAnalise", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "CdEstadoCivil", "type": "int", "nullable": true, "is_key_field": false},
+            {"name": "CdTipoDocPessoaFisica", "type": "int", "nullable": false, "is_key_field": false},
+            {"name": "DtNascimento", "type": "datetime", "nullable": true, "is_key_field": false},
+            {"name": "CdSexo", "type": "char(1)", "nullable": true, "is_key_field": false},
+            {"name": "NuDocumento", "type": "varchar(20)", "nullable": true, "is_key_field": false},
+            {"name": "QtMesesResidenciaAtual", "type": "int", "nullable": true, "is_key_field": false},
+            {"name": "CdProfissao", "type": "int", "nullable": true, "is_key_field": false},
+            {"name": "QtAnosIdade", "type": "int", "nullable": true, "is_key_field": false},
+            {"name": "PcCompromentRenda", "type": "numeric(6,2)", "nullable": true, "is_key_field": false},
+            {"name": "VrTotalVeiculos", "type": "numeric(18,2)", "nullable": true, "is_key_field": false},
+            {"name": "VrTotalReceitas", "type": "numeric(18,2)", "nullable": true, "is_key_field": false},
+            {"name": "FlPep", "type": "char(1)", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["CdPessoaSobAnalise"]},
+            "foreign_key_hints": []
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCRED",
+          "table_name": "TbPessoaSobAnalise",
+          "schema": "dbo",
+          "description": "Pessoas sob análise de crédito vinculadas a uma proposta.",
+          "columns": [
+            {"name": "CdPessoaSobAnalise", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "CdPapel", "type": "int", "nullable": false, "is_key_field": false},
+            {"name": "NmPessoaSobAnalise", "type": "varchar(60)", "nullable": false, "is_key_field": false},
+            {"name": "NuCpfCnpj", "type": "char(15)", "nullable": false, "is_key_field": false},
+            {"name": "TpPessoa", "type": "char(1)", "nullable": false, "is_key_field": false, "description": "F=Física, J=Jurídica"},
+            {"name": "NuProposta", "type": "numeric(9)", "nullable": false, "is_key_field": false},
+            {"name": "QtScore", "type": "int", "nullable": true, "is_key_field": false},
+            {"name": "FlAlertaPessoa", "type": "char(1)", "nullable": true, "is_key_field": false},
+            {"name": "FlExCliente", "type": "char(1)", "nullable": true, "is_key_field": false},
+            {"name": "NuScoreFim", "type": "numeric(3,1)", "nullable": true, "is_key_field": false},
+            {"name": "QtBehavior", "type": "int", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["CdPessoaSobAnalise"]},
+            "foreign_key_hints": [
+              {"relationship_name": "Relationship_294", "from_table": "TbPapel", "to_table": "TbPessoaSobAnalise", "column": "CdPapel"}
+            ]
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCRED",
+          "table_name": "TbProposta",
+          "schema": "dbo",
+          "description": "Tabela central das propostas de crédito veicular do BV.",
+          "columns": [
+            {"name": "NuProposta", "type": "numeric(9)", "nullable": false, "is_key_field": true},
+            {"name": "CdOperador", "type": "int", "nullable": false, "is_key_field": false},
+            {"name": "CdLoja", "type": "int", "nullable": false, "is_key_field": false},
+            {"name": "DtEntradaProposta", "type": "datetime", "nullable": true, "is_key_field": false},
+            {"name": "CdSubProduto", "type": "int", "nullable": false, "is_key_field": false},
+            {"name": "VrProposta", "type": "numeric(18,2)", "nullable": true, "is_key_field": false},
+            {"name": "VrEntrada", "type": "numeric(18,2)", "nullable": true, "is_key_field": false},
+            {"name": "VrFinanciamento", "type": "numeric(18,2)", "nullable": true, "is_key_field": false},
+            {"name": "PcCoeficiente", "type": "numeric(6,5)", "nullable": false, "is_key_field": false},
+            {"name": "VrPrestacao", "type": "numeric(18,2)", "nullable": true, "is_key_field": false},
+            {"name": "QtParcelas", "type": "int", "nullable": true, "is_key_field": false},
+            {"name": "StProposta", "type": "char", "nullable": false, "is_key_field": false, "description": "AP=Aprovada, N=Negada, P=Pendente, C=Cancelada"},
+            {"name": "DtStatusProposta", "type": "datetime", "nullable": true, "is_key_field": false},
+            {"name": "DtVencimento", "type": "datetime", "nullable": true, "is_key_field": false, "description": "Data de vencimento da proposta"},
+            {"name": "TpProposta", "type": "char", "nullable": true, "is_key_field": false},
+            {"name": "FlSeguro", "type": "char", "nullable": true, "is_key_field": false},
+            {"name": "FlRefinanciamento", "type": "char", "nullable": true, "is_key_field": false},
+            {"name": "DtLiberacao", "type": "datetime", "nullable": true, "is_key_field": false},
+            {"name": "CdFilial", "type": "int", "nullable": true, "is_key_field": false},
+            {"name": "CdPessoa", "type": "numeric(12)", "nullable": true, "is_key_field": false},
+            {"name": "NuContratoGestao", "type": "numeric(14)", "nullable": true, "is_key_field": false},
+            {"name": "TxPactuada", "type": "numeric(12,4)", "nullable": true, "is_key_field": false, "description": "Taxa de juros pactuada"},
+            {"name": "TxFinanciamento", "type": "numeric(12,4)", "nullable": true, "is_key_field": false, "description": "Taxa de financiamento"},
+            {"name": "VrComissao", "type": "numeric(18,2)", "nullable": true, "is_key_field": false, "description": "Valor da comissão"},
+            {"name": "TxCetCalculada", "type": "numeric(12,8)", "nullable": true, "is_key_field": false},
+            {"name": "StPagamento", "type": "char", "nullable": false, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["NuProposta"]},
+            "foreign_key_hints": [
+              {"relationship_name": "R_764", "from_table": "TbSubProduto", "to_table": "TbProposta", "column": "CdSubProduto"},
+              {"relationship_name": "R_744", "from_table": "TbFilial", "to_table": "TbProposta", "column": "CdFilial"}
+            ]
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCRED",
+          "table_name": "TbPropostaFinanceiro",
+          "schema": "dbo",
+          "description": "Dados financeiros da proposta (taxas, LTV, CET).",
+          "columns": [
+            {"name": "NuProposta", "type": "numeric(9)", "nullable": false, "is_key_field": true},
+            {"name": "TxCetAnualizada", "type": "numeric(12,4)", "nullable": true, "is_key_field": false},
+            {"name": "TxPactuadaAnualizada", "type": "numeric(12,4)", "nullable": true, "is_key_field": false},
+            {"name": "VrMercado", "type": "numeric(18,2)", "nullable": true, "is_key_field": false},
+            {"name": "PcMargemLiquidaVpl", "type": "numeric(8,4)", "nullable": true, "is_key_field": false},
+            {"name": "TxLTVProposta", "type": "numeric(5,3)", "nullable": true, "is_key_field": false},
+            {"name": "PcLTV", "type": "numeric(10,5)", "nullable": true, "is_key_field": false},
+            {"name": "TxOriginalProposta", "type": "numeric(10,5)", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["NuProposta"]},
+            "foreign_key_hints": [
+              {"relationship_name": "Relationship_450", "from_table": "TbProposta", "to_table": "TbPropostaFinanceiro", "column": "NuProposta"}
+            ]
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCRED",
+          "table_name": "TbPropostaGarantia",
+          "schema": "dbo",
+          "description": "Informações da garantia na proposta. Use esta tabela para consultas sobre garantias.",
+          "columns": [
+            {"name": "CdPropostaGarantia", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "NuProposta", "type": "numeric(9)", "nullable": false, "is_key_field": true},
+            {"name": "CdProduto", "type": "int", "nullable": true, "is_key_field": false},
+            {"name": "TpGarantia", "type": "char(1)", "nullable": false, "is_key_field": false},
+            {"name": "VrGarantia", "type": "numeric(18,2)", "nullable": false, "is_key_field": false},
+            {"name": "VrSegundaCotacao", "type": "numeric(18,2)", "nullable": true, "is_key_field": false},
+            {"name": "FlSegundaCotacao", "type": "char(1)", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["CdPropostaGarantia", "NuProposta"]},
+            "foreign_key_hints": []
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCRED",
+          "table_name": "TbPropGarantiaMaqEquip",
+          "schema": "dbo",
+          "description": "Informações de veículos/máquinas/equipamentos para impressão do contrato. Contém detalhes técnicos como marca, modelo, placa, chassi, etc.",
+          "columns": [
+            {"name": "CdPropostaGarantia", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "NuProposta", "type": "numeric(9)", "nullable": false, "is_key_field": true},
+            {"name": "CdMolicar", "type": "char(9)", "nullable": true, "is_key_field": false},
+            {"name": "DsCor", "type": "char(15)", "nullable": true, "is_key_field": false},
+            {"name": "NuPlaca", "type": "char(7)", "nullable": true, "is_key_field": false},
+            {"name": "AaFabricacao", "type": "char(4)", "nullable": true, "is_key_field": false},
+            {"name": "AaModelo", "type": "char(4)", "nullable": true, "is_key_field": false},
+            {"name": "CdMarca", "type": "char(15)", "nullable": true, "is_key_field": false},
+            {"name": "CdModelo", "type": "varchar(60)", "nullable": true, "is_key_field": false},
+            {"name": "VrMercado", "type": "numeric(18,2)", "nullable": false, "is_key_field": false},
+            {"name": "QtAnosIdade", "type": "int", "nullable": true, "is_key_field": false},
+            {"name": "NuChassis", "type": "char(17)", "nullable": true, "is_key_field": false},
+            {"name": "DsCategoria", "type": "varchar(20)", "nullable": true, "is_key_field": false, "description": "A=AUTOMÓVEL, C=CAMINHÃO, M=MOTO, O=ÔNIBUS, U=UTILITÁRIO"},
+            {"name": "FlZeroKm", "type": "char(1)", "nullable": true, "is_key_field": false},
+            {"name": "FlGarantiaAdicional", "type": "char(1)", "nullable": true, "is_key_field": false},
+            {"name": "QtQuilometragemVeiculo", "type": "int", "nullable": true, "is_key_field": false},
+            {"name": "FlVeiculoBlindado", "type": "char(1)", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["CdPropostaGarantia", "NuProposta"]},
+            "foreign_key_hints": [
+              {"relationship_name": "Relationship_478", "from_table": "TbPropostaGarantia", "to_table": "TbPropGarantiaMaqEquip", "column": "CdPropostaGarantia"}
+            ]
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCRED",
+          "table_name": "TbPropostaSeguro",
+          "schema": "dbo",
+          "description": "Seguros vinculados à proposta.",
+          "columns": [
+            {"name": "CdProdutoSeguro", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "CdTipoSeguro", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "NuProposta", "type": "numeric(9)", "nullable": false, "is_key_field": true},
+            {"name": "NuCalculoSeguro", "type": "numeric(10)", "nullable": true, "is_key_field": false},
+            {"name": "VrSeguro", "type": "numeric(18,2)", "nullable": false, "is_key_field": false},
+            {"name": "VrPrestacaoSeguro", "type": "numeric(18,2)", "nullable": false, "is_key_field": false},
+            {"name": "VrIOFSeguro", "type": "numeric(15,2)", "nullable": true, "is_key_field": false},
+            {"name": "VrCoberturaSinistro", "type": "numeric(15,2)", "nullable": true, "is_key_field": false},
+            {"name": "FlSeguroSimples", "type": "char(1)", "nullable": true, "is_key_field": false},
+            {"name": "VrComissao", "type": "numeric(18,2)", "nullable": true, "is_key_field": false},
+            {"name": "QtMesVigenciaSeguro", "type": "int", "nullable": true, "is_key_field": false},
+            {"name": "VrCapitalSegurado", "type": "numeric(15,2)", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["CdProdutoSeguro", "CdTipoSeguro", "NuProposta"]},
+            "foreign_key_hints": [
+              {"relationship_name": "Relationship_432", "from_table": "TbProposta", "to_table": "TbPropostaSeguro", "column": "NuProposta"}
+            ]
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCRED",
+          "table_name": "TbPapel",
+          "schema": "dbo",
+          "description": "Domínio dos papéis de uma pessoa na proposta (proponente, avalista, cônjuge).",
+          "columns": [
+            {"name": "CdPapel", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "DsPapel", "type": "varchar", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["CdPapel"]},
+            "foreign_key_hints": []
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCOR",
+          "table_name": "TbProduto",
+          "schema": "dbo",
+          "description": "Produtos financeiros do BV (CDC, consignado, etc.).",
+          "columns": [
+            {"name": "CdProduto", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "NmProduto", "type": "varchar(50)", "nullable": false, "is_key_field": false},
+            {"name": "DtInclusao", "type": "datetime", "nullable": false, "is_key_field": false},
+            {"name": "DtAlteracao", "type": "datetime", "nullable": true, "is_key_field": false},
+            {"name": "CdColaborador", "type": "int", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["CdProduto"]},
+            "foreign_key_hints": []
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCOR",
+          "table_name": "TbModalidadeProduto",
+          "schema": "dbo",
+          "description": "Modalidades de cada produto financeiro do BV.",
+          "columns": [
+            {"name": "CdProduto", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "CdModalidadeProduto", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "NmModalidadeProduto", "type": "varchar(40)", "nullable": false, "is_key_field": false},
+            {"name": "DsProdutoScc", "type": "char(2)", "nullable": true, "is_key_field": false},
+            {"name": "FlValidaCep", "type": "char(1)", "nullable": false, "is_key_field": false},
+            {"name": "FlAtivo", "type": "char(1)", "nullable": false, "is_key_field": false},
+            {"name": "CdModalidadeProdutoBacen", "type": "int", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["CdProduto", "CdModalidadeProduto"]},
+            "foreign_key_hints": [
+              {"relationship_name": "R_ModalidadeProduto", "from_table": "TbProduto", "to_table": "TbModalidadeProduto", "column": "CdProduto"}
+            ]
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCOR",
+          "table_name": "TbSubProduto",
+          "schema": "dbo",
+          "description": "Subprodutos financeiros do BV. TbProposta referencia via CdSubProduto.",
+          "columns": [
+            {"name": "CdSubProduto", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "DsSubProduto", "type": "varchar(40)", "nullable": false, "is_key_field": false},
+            {"name": "CdModalidadeProduto", "type": "int", "nullable": true, "is_key_field": false},
+            {"name": "CdProduto", "type": "int", "nullable": true, "is_key_field": false},
+            {"name": "FlAtivo", "type": "char(1)", "nullable": false, "is_key_field": false},
+            {"name": "FlOfertaMultiProduto", "type": "char(1)", "nullable": false, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["CdSubProduto"]},
+            "foreign_key_hints": [
+              {"relationship_name": "R_SubProdutoProduto", "from_table": "TbProduto", "to_table": "TbSubProduto", "column": "CdProduto"},
+              {"relationship_name": "R_SubProdutoModalidade", "from_table": "TbModalidadeProduto", "to_table": "TbSubProduto", "column": "CdModalidadeProduto"}
+            ]
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCOR",
+          "table_name": "TbPessoa",
+          "schema": "dbo",
+          "description": "Cadastro central de pessoas (físicas e jurídicas) do BV.",
+          "columns": [
+            {"name": "CdPessoa", "type": "numeric(12,0)", "nullable": false, "is_key_field": true},
+            {"name": "NmPessoa", "type": "varchar(60)", "nullable": false, "is_key_field": false},
+            {"name": "NuCpfCnpj", "type": "char(14)", "nullable": true, "is_key_field": false},
+            {"name": "TpPessoa", "type": "char(1)", "nullable": true, "is_key_field": false, "description": "F=Física, J=Jurídica"},
+            {"name": "FlAtivo", "type": "char(1)", "nullable": true, "is_key_field": false},
+            {"name": "DtPrimeiroCadastro", "type": "datetime", "nullable": false, "is_key_field": false},
+            {"name": "DtAlteracao", "type": "datetime", "nullable": true, "is_key_field": false},
+            {"name": "FlPermiteSms", "type": "char(1)", "nullable": true, "is_key_field": false},
+            {"name": "FlRecebeEmail", "type": "char(1)", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["CdPessoa"]},
+            "foreign_key_hints": []
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCRED",
+          "table_name": "TbEnderecoTbPessoaSobAnalise",
+          "schema": "dbo",
+          "description": "Endereços das pessoas sob análise.",
+          "columns": [
+            {"name": "CdTipoEndereco", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "CdPessoaSobAnalise", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "DsLogradouro", "type": "varchar(25)", "nullable": true, "is_key_field": false},
+            {"name": "NuLogradouro", "type": "char(5)", "nullable": true, "is_key_field": false},
+            {"name": "DsComplementoLogradouro", "type": "char(15)", "nullable": true, "is_key_field": false},
+            {"name": "DsBairro", "type": "varchar(40)", "nullable": true, "is_key_field": false},
+            {"name": "CdCep", "type": "char(8)", "nullable": true, "is_key_field": false},
+            {"name": "NmCidade", "type": "varchar(20)", "nullable": true, "is_key_field": false},
+            {"name": "CdUf", "type": "char(2)", "nullable": true, "is_key_field": false},
+            {"name": "FlCorrespondencia", "type": "char(1)", "nullable": false, "is_key_field": false},
+            {"name": "FlParecerCep", "type": "char(1)", "nullable": true, "is_key_field": false},
+            {"name": "ObParecerCep", "type": "varchar(100)", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["CdTipoEndereco", "CdPessoaSobAnalise"]},
+            "foreign_key_hints": [
+              {"relationship_name": "Relationship_614", "from_table": "TbTipoEndereco", "to_table": "TbEnderecoTbPessoaSobAnalise", "column": "CdTipoEndereco"}
+            ]
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCRED",
+          "table_name": "TbInformacoesContador",
+          "schema": "dbo",
+          "description": "Informações do contador vinculado à pessoa jurídica sob análise.",
+          "columns": [
+            {"name": "CdPessoaSobAnalise", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "CdProcedenciaConferencia", "type": "numeric(2)", "nullable": true, "is_key_field": false},
+            {"name": "CdComplementoProcedencia", "type": "numeric(2)", "nullable": true, "is_key_field": false},
+            {"name": "NmContador", "type": "varchar(60)", "nullable": true, "is_key_field": false},
+            {"name": "CdDdd", "type": "char(3)", "nullable": true, "is_key_field": false},
+            {"name": "NuTelefone", "type": "char(12)", "nullable": true, "is_key_field": false},
+            {"name": "NmContato", "type": "varchar(20)", "nullable": true, "is_key_field": false},
+            {"name": "NuRamal", "type": "char(5)", "nullable": true, "is_key_field": false},
+            {"name": "NmLogradouro", "type": "varchar(40)", "nullable": true, "is_key_field": false},
+            {"name": "CdCep", "type": "char(8)", "nullable": true, "is_key_field": false},
+            {"name": "NmCidade", "type": "varchar(20)", "nullable": true, "is_key_field": false},
+            {"name": "NuCrc", "type": "varchar(30)", "nullable": true, "is_key_field": false},
+            {"name": "FlStatusCrc", "type": "char(1)", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["CdPessoaSobAnalise"]},
+            "foreign_key_hints": [
+              {"relationship_name": "Relationship_335", "from_table": "TbPessoaJuridicaSobAnalise", "to_table": "TbInformacoesContador", "column": "CdPessoaSobAnalise"}
+            ]
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCRED",
+          "table_name": "TbObservacaoProposta",
+          "schema": "dbo",
+          "description": "Observações e pareceres vinculados à proposta.",
+          "columns": [
+            {"name": "NuSeqObservacao", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "NuProposta", "type": "numeric(9)", "nullable": false, "is_key_field": true},
+            {"name": "CdTipoObservacao", "type": "int", "nullable": false, "is_key_field": false},
+            {"name": "ObObservacao", "type": "varchar(1500)", "nullable": true, "is_key_field": false},
+            {"name": "TpObservacaoParecerProposta", "type": "char(1)", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["NuSeqObservacao", "NuProposta"]},
+            "foreign_key_hints": [
+              {"relationship_name": "Relationship_623", "from_table": "TbTipoObservacao", "to_table": "TbObservacaoProposta", "column": "CdTipoObservacao"}
+            ]
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCRED",
+          "table_name": "TbPessoaFisicaTipoReceita",
+          "schema": "dbo",
+          "description": "Receitas declaradas pela pessoa física na contratação do crédito.",
+          "columns": [
+            {"name": "CdTipoReceita", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "CdPessoaSobAnalise", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "CdTipoOutroRendimento", "type": "int", "nullable": true, "is_key_field": false},
+            {"name": "VrReceita", "type": "numeric(18,2)", "nullable": false, "is_key_field": false},
+            {"name": "DsOutros", "type": "varchar", "nullable": true, "is_key_field": false},
+            {"name": "FlRendimentoConsideradoRenda", "type": "char(1)", "nullable": false, "is_key_field": false},
+            {"name": "FlConfirmaRendaMensal", "type": "char(1)", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["CdTipoReceita", "CdPessoaSobAnalise"]},
+            "foreign_key_hints": []
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCRED",
+          "table_name": "TbPessoaJuridicaSobAnalise",
+          "schema": "dbo",
+          "description": "Dados da pessoa jurídica sob análise de crédito.",
+          "columns": [
+            {"name": "CdPessoaSobAnalise", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "NuInscricaoEstadual", "type": "varchar(20)", "nullable": true, "is_key_field": false},
+            {"name": "VrCapitalSocial", "type": "numeric(18,2)", "nullable": true, "is_key_field": false},
+            {"name": "VrProLabore", "type": "numeric(18,2)", "nullable": true, "is_key_field": false},
+            {"name": "FlSedePropria", "type": "char(1)", "nullable": true, "is_key_field": false},
+            {"name": "QtFuncionarios", "type": "int", "nullable": true, "is_key_field": false},
+            {"name": "NmFantasia", "type": "varchar(40)", "nullable": true, "is_key_field": false},
+            {"name": "QtMesesAtividade", "type": "int", "nullable": true, "is_key_field": false},
+            {"name": "DtAbertura", "type": "datetime", "nullable": true, "is_key_field": false},
+            {"name": "DsRamoAtividade", "type": "varchar(100)", "nullable": true, "is_key_field": false},
+            {"name": "FlCnpjMatriz", "type": "char(1)", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["CdPessoaSobAnalise"]},
+            "foreign_key_hints": []
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCRED",
+          "table_name": "TbPessoaSobAnaliseTipoTelefone",
+          "schema": "dbo",
+          "description": "Telefones das pessoas sob análise.",
+          "columns": [
+            {"name": "CdTipoTelefone", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "CdPessoaSobAnalise", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "CdDdd", "type": "char(3)", "nullable": true, "is_key_field": false},
+            {"name": "NuTelefone", "type": "char(12)", "nullable": false, "is_key_field": false},
+            {"name": "NmContato", "type": "varchar(20)", "nullable": true, "is_key_field": false},
+            {"name": "NuRamal", "type": "char(5)", "nullable": true, "is_key_field": false},
+            {"name": "FlRecebeSms", "type": "char(1)", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["CdTipoTelefone", "CdPessoaSobAnalise"]},
+            "foreign_key_hints": [
+              {"relationship_name": "FkTbPssaSobAnlseTbPssaSobAnlse", "from_table": "TbPessoaSobAnalise", "to_table": "TbPessoaSobAnaliseTipoTelefone", "column": "CdPessoaSobAnalise"}
+            ]
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCRED",
+          "table_name": "TbPessoaTipoEnderecoEletronico",
+          "schema": "dbo",
+          "description": "E-mails das pessoas sob análise.",
+          "columns": [
+            {"name": "CdTipoEnderecoEletronico", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "CdPessoaSobAnalise", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "DsEmail", "type": "varchar(100)", "nullable": false, "is_key_field": false},
+            {"name": "FlRecebeEmail", "type": "char(1)", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["CdTipoEnderecoEletronico", "CdPessoaSobAnalise"]},
+            "foreign_key_hints": [
+              {"relationship_name": "FkTbPssaSobAnlseTbPssaTpoEndro", "from_table": "TbPessoaSobAnalise", "to_table": "TbPessoaTipoEnderecoEletronico", "column": "CdPessoaSobAnalise"}
+            ]
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCRED",
+          "table_name": "TbPropFavorecidoComissaoCet",
+          "schema": "dbo",
+          "description": "Pagamentos de comissão CET vinculados à proposta.",
+          "columns": [
+            {"name": "NuProposta", "type": "numeric(9)", "nullable": false, "is_key_field": true},
+            {"name": "CdAcordo", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "NuSeq", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "NuBanco", "type": "char(3)", "nullable": false, "is_key_field": false},
+            {"name": "NuCpfCnpj", "type": "char(14)", "nullable": false, "is_key_field": false},
+            {"name": "NmFavorecido", "type": "varchar(60)", "nullable": false, "is_key_field": false},
+            {"name": "VrFavorecido", "type": "numeric(12,2)", "nullable": false, "is_key_field": false},
+            {"name": "TpPagamento", "type": "char(2)", "nullable": false, "is_key_field": false},
+            {"name": "CdPeriodicidadePagto", "type": "int", "nullable": false, "is_key_field": false},
+            {"name": "VrComissaoParcelada", "type": "numeric(18,2)", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["NuProposta", "CdAcordo", "NuSeq"]},
+            "foreign_key_hints": [
+              {"relationship_name": "Relationship_438", "from_table": "TbProposta", "to_table": "TbPropFavorecidoComissaoCet", "column": "NuProposta"}
+            ]
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCRED",
+          "table_name": "TbPropostaAgenteCertificado",
+          "schema": "dbo",
+          "description": "Agente certificado responsável pela proposta.",
+          "columns": [
+            {"name": "NuProposta", "type": "numeric(9)", "nullable": false, "is_key_field": true},
+            {"name": "CdAgenteCertificado", "type": "int", "nullable": false, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["NuProposta"]},
+            "foreign_key_hints": [
+              {"relationship_name": "FkTbPrpstaTbPopstaAgnteCrtfcdo", "from_table": "TbProposta", "to_table": "TbPropostaAgenteCertificado", "column": "NuProposta"}
+            ]
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCRED",
+          "table_name": "TbPropostaCusto",
+          "schema": "dbo",
+          "description": "Custos CET e não-CET da proposta.",
+          "columns": [
+            {"name": "CdPessoaSobAnalise", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "NuSeqTbReferenciaBancariaRascu", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "NuProposta", "type": "numeric(9)", "nullable": false, "is_key_field": true},
+            {"name": "CdTipoCusto", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "CdGrupoCusto", "type": "int", "nullable": true, "is_key_field": false},
+            {"name": "PcCusto", "type": "numeric(5,2)", "nullable": false, "is_key_field": false},
+            {"name": "VrCusto", "type": "numeric(18,2)", "nullable": false, "is_key_field": false},
+            {"name": "FlSomaCusto", "type": "char(1)", "nullable": false, "is_key_field": false},
+            {"name": "FlServicoFinanciado", "type": "char(1)", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["CdPessoaSobAnalise", "NuSeqTbReferenciaBancariaRascu", "NuProposta", "CdTipoCusto"]},
+            "foreign_key_hints": [
+              {"relationship_name": "Relationship_428", "from_table": "TbProposta", "to_table": "TbPropostaCusto", "column": "NuProposta"}
+            ]
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCRED",
+          "table_name": "TbPropostaFavorecido",
+          "schema": "dbo",
+          "description": "Pessoas que receberão o dinheiro do financiamento.",
+          "columns": [
+            {"name": "NuProposta", "type": "numeric(9)", "nullable": false, "is_key_field": true},
+            {"name": "NuSeq", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "CdParceiroComercial", "type": "int", "nullable": true, "is_key_field": false},
+            {"name": "CdTipoPropostaFavorecido", "type": "int", "nullable": true, "is_key_field": false},
+            {"name": "NuBanco", "type": "char(3)", "nullable": true, "is_key_field": false},
+            {"name": "NuCpfCnpj", "type": "char(14)", "nullable": false, "is_key_field": false},
+            {"name": "NmFavorecido", "type": "varchar(60)", "nullable": true, "is_key_field": false},
+            {"name": "VrFavorecido", "type": "numeric(12,2)", "nullable": true, "is_key_field": false},
+            {"name": "FlTerceiro", "type": "char(1)", "nullable": false, "is_key_field": false},
+            {"name": "TpPagamento", "type": "char(18)", "nullable": false, "is_key_field": false},
+            {"name": "TpConta", "type": "char(1)", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["NuProposta", "NuSeq"]},
+            "foreign_key_hints": [
+              {"relationship_name": "Relationship_430", "from_table": "TbProposta", "to_table": "TbPropostaFavorecido", "column": "NuProposta"}
+            ]
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCRED",
+          "table_name": "TbReferenciaBancaria",
+          "schema": "dbo",
+          "description": "Referências bancárias das pessoas sob análise.",
+          "columns": [
+            {"name": "CdPessoaSobAnalise", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "NuSeq", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "CdBanco", "type": "char(3)", "nullable": true, "is_key_field": false},
+            {"name": "CdAgenciaBanco", "type": "char(4)", "nullable": true, "is_key_field": false},
+            {"name": "NuContaCorrente", "type": "varchar(20)", "nullable": true, "is_key_field": false},
+            {"name": "QtMesesCc", "type": "int", "nullable": true, "is_key_field": false},
+            {"name": "TpCc", "type": "char(1)", "nullable": true, "is_key_field": false},
+            {"name": "ObReferenciaBancaria", "type": "varchar(255)", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["CdPessoaSobAnalise", "NuSeq"]},
+            "foreign_key_hints": []
+          }
+        }
+      },
+      {
+        "table_definition": {
+          "database": "DBCRED",
+          "table_name": "TbReferenciaPessoal",
+          "schema": "dbo",
+          "description": "Referências pessoais das pessoas sob análise.",
+          "columns": [
+            {"name": "CdPessoaSobAnalise", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "NuSeqRefPessoal", "type": "int", "nullable": false, "is_key_field": true},
+            {"name": "NmReferenciaPessoal", "type": "varchar", "nullable": true, "is_key_field": false},
+            {"name": "CdDdd", "type": "char", "nullable": true, "is_key_field": false},
+            {"name": "NuTelefoneRefPessoal", "type": "char", "nullable": true, "is_key_field": false},
+            {"name": "NuRamal", "type": "char", "nullable": true, "is_key_field": false},
+            {"name": "ObReferenciaPessoal", "type": "varchar", "nullable": true, "is_key_field": false},
+            {"name": "CdDddCelular", "type": "char", "nullable": true, "is_key_field": false},
+            {"name": "NuCelularRefPessoal", "type": "char", "nullable": true, "is_key_field": false}
+          ],
+          "constraints": {
+            "primary_key": {"columns": ["CdPessoaSobAnalise", "NuSeqRefPessoal"]},
+            "foreign_key_hints": []
+          }
+        }
+      }
+    ]
+  }
+    }
+  }
+}

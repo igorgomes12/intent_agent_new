@@ -1,0 +1,34 @@
+{
+  "table": "TbProduto",
+  "fields": {
+    "CdProduto": {
+      "description": "Código do Produto Financeiro (tipo de crédito e garantia)",
+      "values": {
+        "cdc com garantia": "12",
+        "com garantia": "12",
+        "garantia": "12",
+        "garantido": "12",
+        "cdc garantido": "12",
+        "financiamento com garantia": "12",
+        "financiamento garantido": "12",
+        "cdc sem garantia": "13",
+        "sem garantia": "13",
+        "sem garantias": "13",
+        "cdc": "12",
+        "crédito direto ao consumidor": "12",
+        "credito direto ao consumidor": "12",
+        "financiamento": "12"
+      }
+    }
+  },
+  "related_tables": {
+    "TbSubProduto": {
+      "relationship": "TbProduto.CdProduto = TbSubProduto.CdProduto",
+      "description": "Define o tipo específico de produto"
+    },
+    "TbModalidadeProduto": {
+      "relationship": "TbProduto.CdProduto = TbModalidadeProduto.CdProduto",
+      "description": "Define a modalidade/tipo de veículo (motos, vans, leves, pesados)"
+    }
+  }
+}

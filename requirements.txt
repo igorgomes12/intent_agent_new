@@ -1,0 +1,16 @@
+# Core dependencies
+python-dotenv>=1.0.0
+google-cloud-firestore>=2.11.0
+google-genai>=1.0.0
+vertexai>=1.0.0
+
+# API dependencies
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.0.0
+httpx>=0.25.0
+
+# Testing dependencies (optional - install with: pip install -r requirements-test.txt)
+# pytest>=7.4.0
+# pytest-cov>=4.1.0
+# pytest-mock>=3.11.1

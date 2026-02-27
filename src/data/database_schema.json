@@ -1,0 +1,3570 @@
+{
+  "ddl": [
+    {
+      "database": "DBCRED",
+      "tipo": "Sybase",
+      "tables": [
+        {
+          "schema": "dbo",
+          "name": "TbControleGeracaoCCB",
+          "columns": [
+            {
+              "name": "NuVersaoGeracaoCCB",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "NuProposta",
+              "type": "numeric(9,0)",
+              "nullable": false
+            },
+            {
+              "name": "DtGeracaoCCB",
+              "type": "datetime",
+              "nullable": false
+            },
+            {
+              "name": "CdPerfilGeracaoCCB",
+              "type": "char(1)",
+              "nullable": false
+            },
+            {
+              "name": "CdOperadorInclusao",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "DsVersaoGeracaoCCB",
+              "type": "varchar(20)",
+              "nullable": false
+            },
+            {
+              "name": "DtCancelamentoGeracaoCCB",
+              "type": "datetime",
+              "nullable": true
+            },
+            {
+              "name": "CdOperadorCancelamento",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdAutenticacaoGeracaoCCB",
+              "type": "varchar(20)",
+              "nullable": false
+            },
+            {
+              "name": "CdPerfilCancelamentoCCB",
+              "type": "char(1)",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "NuVersaoGeracaoCCB",
+            "NuProposta"
+          ],
+          "foreignKeys": [
+            {
+              "name": "FK_TbControleGeracaoCCB_TbProposta",
+              "column": "NuProposta",
+              "references": {
+                "table": "TbProposta",
+                "column": "NuProposta"
+              }
+            }
+          ],
+          "indexes": [
+            {
+              "name": "nnnn1TbControleGeracaoCCB",
+              "columns": [
+                "NuProposta"
+              ],
+              "unique": false
+            },
+            {
+              "name": "pnunTbControleGeracaoCCB",
+              "columns": [
+                "NuVersaoGeracaoCCB",
+                "NuProposta"
+              ],
+              "unique": true
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbEmpregoPessoaFisica",
+          "columns": [
+            {
+              "name": "CdPessoaSobAnalise",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "CdSeqEmprego",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "NmRazaoSocialEmpresa",
+              "type": "varchar(60)",
+              "nullable": false
+            },
+            {
+              "name": "QtMesesEmprego",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "DsCargo",
+              "type": "varchar(20)",
+              "nullable": true
+            },
+            {
+              "name": "NmDepartamento",
+              "type": "varchar(20)",
+              "nullable": true
+            },
+            {
+              "name": "FlAtual",
+              "type": "char(1)",
+              "nullable": false
+            },
+            {
+              "name": "CdDdd",
+              "type": "char(3)",
+              "nullable": true
+            },
+            {
+              "name": "NuTelefoneEmprego",
+              "type": "char(12)",
+              "nullable": true
+            },
+            {
+              "name": "NuRamal",
+              "type": "char(5)",
+              "nullable": true
+            },
+            {
+              "name": "DtAdmissaoPessoa",
+              "type": "datetime",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "CdPessoaSobAnalise",
+            "CdSeqEmprego"
+          ],
+          "indexes": [
+            {
+              "name": "pcunTbEmpregoPessoaFisica",
+              "columns": [
+                "CdPessoaSobAnalise",
+                "CdSeqEmprego"
+              ],
+              "unique": true
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbEnderecoTbPessoaSobAnalise",
+          "columns": [
+            {
+              "name": "CdPessoaSobAnalise",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "CdTipoEndereco",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "DsLogradouro",
+              "type": "varchar(25)",
+              "nullable": true
+            },
+            {
+              "name": "NuLogradouro",
+              "type": "char(5)",
+              "nullable": true
+            },
+            {
+              "name": "DsComplementoLogradouro",
+              "type": "char(15)",
+              "nullable": true
+            },
+            {
+              "name": "CdCep",
+              "type": "char(8)",
+              "nullable": true
+            },
+            {
+              "name": "DsBairro",
+              "type": "varchar(20)",
+              "nullable": true
+            },
+            {
+              "name": "NmCidade",
+              "type": "varchar(20)",
+              "nullable": true
+            },
+            {
+              "name": "CdUf",
+              "type": "char(2)",
+              "nullable": true
+            },
+            {
+              "name": "FlCorrespondencia",
+              "type": "char(1)",
+              "nullable": false
+            },
+            {
+              "name": "FlParecerCep",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "ObParecerCep",
+              "type": "varchar(100)",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "CdPessoaSobAnalise",
+            "CdTipoEndereco"
+          ],
+          "foreignKeys": [
+            {
+              "name": "FK_TbEnderecoTbPessoaSobAnalise_TbTipoEndereco",
+              "column": "CdTipoEndereco",
+              "references": {
+                "table": "TbTipoEndereco",
+                "column": "CdTipoEndereco"
+              }
+            }
+          ],
+          "indexes": [
+            {
+              "name": "nnnf2TbEnderecoTbPessoaSobAna",
+              "columns": [
+                "CdTipoEndereco"
+              ],
+              "unique": false
+            },
+            {
+              "name": "pcunTbEnderecoTbPessoaSobAnali",
+              "columns": [
+                "CdPessoaSobAnalise",
+                "CdTipoEndereco"
+              ],
+              "unique": true
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbInformacoesContador",
+          "columns": [
+            {
+              "name": "CdPessoaSobAnalise",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "NmContador",
+              "type": "varchar(60)",
+              "nullable": true
+            },
+            {
+              "name": "CdDdd",
+              "type": "char(3)",
+              "nullable": true
+            },
+            {
+              "name": "NuTelefone",
+              "type": "char(12)",
+              "nullable": true
+            },
+            {
+              "name": "NmContato",
+              "type": "varchar(20)",
+              "nullable": true
+            },
+            {
+              "name": "NuRamal",
+              "type": "char(5)",
+              "nullable": true
+            },
+            {
+              "name": "NmLogradouro",
+              "type": "varchar(40)",
+              "nullable": true
+            },
+            {
+              "name": "NuLogradouro",
+              "type": "char(5)",
+              "nullable": true
+            },
+            {
+              "name": "DsComplementoLogradouro",
+              "type": "char(15)",
+              "nullable": true
+            },
+            {
+              "name": "CdCep",
+              "type": "char(8)",
+              "nullable": true
+            },
+            {
+              "name": "NmBairro",
+              "type": "varchar(20)",
+              "nullable": true
+            },
+            {
+              "name": "NmCidade",
+              "type": "varchar(20)",
+              "nullable": true
+            },
+            {
+              "name": "DsUf",
+              "type": "char(2)",
+              "nullable": true
+            },
+            {
+              "name": "NuCrc",
+              "type": "varchar(30)",
+              "nullable": true
+            },
+            {
+              "name": "FlStatusCrc",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "CdProcedenciaConferencia",
+              "type": "numeric(2,0)",
+              "nullable": true
+            },
+            {
+              "name": "CdComplementoProcedencia",
+              "type": "numeric(2,0)",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "CdPessoaSobAnalise"
+          ],
+          "foreignKeys": [
+            {
+              "name": "FK_TbInformacoesContador_TbComplementoProcedencia",
+              "column": "CdComplementoProcedencia",
+              "references": {
+                "table": "TbComplementoProcedencia",
+                "column": "CdComplementoProcedencia"
+              }
+            },
+            {
+              "name": "FK_TbInformacoesContador_TbPessoaJuridicaSobAnalise_2",
+              "column": "CdPessoaSobAnalise",
+              "references": {
+                "table": "TbPessoaJuridicaSobAnalise",
+                "column": "CdPessoaSobAnalise"
+              }
+            },
+            {
+              "name": "FK_TbInformacoesContador_TbProcedenciaConferencia_3",
+              "column": "CdProcedenciaConferencia",
+              "references": {
+                "table": "TbProcedenciaConferencia",
+                "column": "CdProcedenciaConferencia"
+              }
+            }
+          ],
+          "indexes": [
+            {
+              "name": "pcunTbInformacoesContador",
+              "columns": [
+                "CdPessoaSobAnalise"
+              ],
+              "unique": true
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbLogStatusProposta",
+          "columns": [
+            {
+              "name": "NuProposta",
+              "type": "numeric(9,0)",
+              "nullable": false
+            },
+            {
+              "name": "DtStatusProposta",
+              "type": "datetime",
+              "nullable": false
+            },
+            {
+              "name": "StProposta",
+              "type": "char(2)",
+              "nullable": true
+            },
+            {
+              "name": "TpFila",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "CdColaboradorFila",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "NmUserBancoDados",
+              "type": "varchar(25)",
+              "nullable": true
+            },
+            {
+              "name": "FlRespAutomatica",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "NmServidor",
+              "type": "varchar(25)",
+              "nullable": true
+            }
+          ],
+          "indexes": [
+            {
+              "name": "nnnf1TbLogStatusProposta",
+              "columns": [
+                "NuProposta"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn1TbLogStatusProposta",
+              "columns": [
+                "StProposta"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn2TbLogStatusProposta",
+              "columns": [
+                "DtStatusProposta"
+              ],
+              "unique": false
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbObservacaoProposta",
+          "columns": [
+            {
+              "name": "NuProposta",
+              "type": "numeric(9,0)",
+              "nullable": false
+            },
+            {
+              "name": "NuSeqObservacao",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "ObObservacao",
+              "type": "varchar(1500)",
+              "nullable": true
+            },
+            {
+              "name": "CdTipoObservacaoProposta",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "TpObservacaoExcecaoProposta",
+              "type": "char(1)",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "NuProposta",
+            "NuSeqObservacao"
+          ],
+          "foreignKeys": [
+            {
+              "name": "FK_TbObservacaoProposta_TbTipoObservacao",
+              "column": "CdTipoObservacaoProposta",
+              "references": {
+                "table": "TbTipoObservacao",
+                "column": "CdTipoObservacao"
+              }
+            }
+          ],
+          "indexes": [
+            {
+              "name": "nnnf2TbObservacaoProposta",
+              "columns": [
+                "CdTipoObservacaoProposta"
+              ],
+              "unique": false
+            },
+            {
+              "name": "pcunTbObservacaoProposta",
+              "columns": [
+                "NuProposta",
+                "NuSeqObservacao"
+              ],
+              "unique": true
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbPessoaFisicaSobAnalise",
+          "columns": [
+            {
+              "name": "CdPessoaSobAnalise",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "CdPessoaSobAnaliseEmpresa",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdEstadoCivil",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdTipoResidencia",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdTipoDocPessoaFisica",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "DtNascimento",
+              "type": "datetime",
+              "nullable": true
+            },
+            {
+              "name": "CdPessoaConjuge",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdSexo",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "NuDocumento",
+              "type": "varchar(20)",
+              "nullable": true
+            },
+            {
+              "name": "DtEmissaoDocumento",
+              "type": "datetime",
+              "nullable": true
+            },
+            {
+              "name": "NmOrgaoExpedidorDoc",
+              "type": "varchar(20)",
+              "nullable": true
+            },
+            {
+              "name": "DsUfDocumento",
+              "type": "char(2)",
+              "nullable": true
+            },
+            {
+              "name": "DsNaturalidade",
+              "type": "varchar(50)",
+              "nullable": true
+            },
+            {
+              "name": "DsUfNaturalidade",
+              "type": "char(2)",
+              "nullable": true
+            },
+            {
+              "name": "DsNacionalidade",
+              "type": "varchar(50)",
+              "nullable": true
+            },
+            {
+              "name": "NmPai",
+              "type": "varchar(60)",
+              "nullable": true
+            },
+            {
+              "name": "NmMae",
+              "type": "varchar(60)",
+              "nullable": true
+            },
+            {
+              "name": "QtMesesResidenciaAtual",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdProfissao",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdTipoProfissional",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "QtAnosIdade",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "PcCompromentRenda",
+              "type": "numeric(6,2)",
+              "nullable": true
+            },
+            {
+              "name": "VrTotalVeiculos",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "VrTotalReceitas",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "VrTotalImoveis",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "VrImovelResidencia",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "QtVeiculos",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "FlSindicalizado",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "CdMatricula",
+              "type": "varchar(20)",
+              "nullable": true
+            },
+            {
+              "name": "CdTipoBeneficioInss",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "DtNascDataPrev",
+              "type": "datetime",
+              "nullable": true
+            },
+            {
+              "name": "DsUfCdMatricula",
+              "type": "char(2)",
+              "nullable": true
+            },
+            {
+              "name": "FlPep",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "CdClienteBancoBrasilOcupacao",
+              "type": "numeric(3,0)",
+              "nullable": true
+            },
+            {
+              "name": "FlDocumentoRoubadoExtraviado",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "DsDocumentoRoubadoExtraviado",
+              "type": "varchar(100)",
+              "nullable": true
+            },
+            {
+              "name": "FlValidacaoOcupacaoBancoBrasil",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "CdTipoFontePagadora",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdNivelCargo",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "FlPaiNaoDeclarado",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlTelefoneResidencia",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlTelefoneCelular",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlEMail",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlRendaMensal",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlAlfabetizada",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "NuPis",
+              "type": "char(11)",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "CdPessoaSobAnalise"
+          ],
+          "foreignKeys": [
+            {
+              "name": "FK_TbPessoaFisicaSobAnalise_TbPessoaJuridicaSobAnalise",
+              "column": "CdPessoaSobAnaliseEmpresa",
+              "references": {
+                "table": "TbPessoaJuridicaSobAnalise",
+                "column": "CdPessoaSobAnalise"
+              }
+            },
+            {
+              "name": "FK_TbPessoaFisicaSobAnalise_TbPessoaJuridicaSobAnalise_2",
+              "column": "CdPessoaSobAnaliseEmpresa",
+              "references": {
+                "table": "TbPessoaJuridicaSobAnalise",
+                "column": "CdPessoaSobAnalise"
+              }
+            },
+            {
+              "name": "FK_TbPessoaFisicaSobAnalise_TbTipoProfissional_3",
+              "column": "CdTipoProfissional",
+              "references": {
+                "table": "TbTipoProfissional",
+                "column": "CdTipoProfissional"
+              }
+            },
+            {
+              "name": "FK_TbPessoaFisicaSobAnalise_TbTipoResidencia_4",
+              "column": "CdTipoResidencia",
+              "references": {
+                "table": "TbTipoResidencia",
+                "column": "CdTipoResidencia"
+              }
+            }
+          ],
+          "indexes": [
+            {
+              "name": "nnnf2TbPessoaFisicaSobAnalise",
+              "columns": [
+                "CdPessoaConjuge"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnf5TbPessoaFisicaSobAnalise",
+              "columns": [
+                "CdPessoaSobAnaliseEmpresa"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnf8TbPessoaFisicaSobAnalise",
+              "columns": [
+                "CdProfissao"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn6TbPessoaFisicaSobAnalise",
+              "columns": [
+                "CdMatricula"
+              ],
+              "unique": false
+            },
+            {
+              "name": "pcunTbPessoaFisicaSobAnalise",
+              "columns": [
+                "CdPessoaSobAnalise"
+              ],
+              "unique": true
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbPessoaFisicaTipoReceita",
+          "columns": [
+            {
+              "name": "CdPessoaSobAnalise",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "CdTipoReceita",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "VrReceita",
+              "type": "numeric(18,2)",
+              "nullable": false
+            },
+            {
+              "name": "DsOutros",
+              "type": "varchar(50)",
+              "nullable": true
+            },
+            {
+              "name": "CdTipoOutroRendimento",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "FlRendimentoConsideradoRenda",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlConfirmaRendaMensal",
+              "type": "char(1)",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "CdPessoaSobAnalise",
+            "CdTipoReceita"
+          ],
+          "foreignKeys": [
+            {
+              "name": "FK_TbPessoaFisicaTipoReceita_TbTipoOutroRendimento",
+              "column": "CdTipoOutroRendimento",
+              "references": {
+                "table": "TbTipoOutroRendimento",
+                "column": "CdTipoOutroRendimento"
+              }
+            },
+            {
+              "name": "FK_TbPessoaFisicaTipoReceita_TbTipoReceita_2",
+              "column": "CdTipoReceita",
+              "references": {
+                "table": "TbTipoReceita",
+                "column": "CdTipoReceita"
+              }
+            }
+          ],
+          "indexes": [
+            {
+              "name": "nnnf2TbPessoaFisicaTipoReceit",
+              "columns": [
+                "CdTipoReceita"
+              ],
+              "unique": false
+            },
+            {
+              "name": "pcunTbPessoaFisicaTipoReceita",
+              "columns": [
+                "CdPessoaSobAnalise",
+                "CdTipoReceita"
+              ],
+              "unique": true
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbPessoaJuridicaSobAnalise",
+          "columns": [
+            {
+              "name": "CdPessoaSobAnalise",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "NuCcm",
+              "type": "varchar(20)",
+              "nullable": true
+            },
+            {
+              "name": "NuInscricaoEstadual",
+              "type": "varchar(20)",
+              "nullable": true
+            },
+            {
+              "name": "VrCapitalSocial",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "VrProLabore",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "FlSedePropria",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "QtFuncionarios",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "NmFantasia",
+              "type": "varchar(40)",
+              "nullable": true
+            },
+            {
+              "name": "QtMesesAtividade",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "DtAbertura",
+              "type": "datetime",
+              "nullable": true
+            },
+            {
+              "name": "DsRamoAtividade",
+              "type": "varchar(100)",
+              "nullable": true
+            },
+            {
+              "name": "CdRamoAtividade",
+              "type": "char(10)",
+              "nullable": true
+            },
+            {
+              "name": "FlCnpjMatriz",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "CdTipoSede",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdFormaConstituicaoPessoaJrdca",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "TsReplicacao",
+              "type": "varbinary(8)",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "CdPessoaSobAnalise"
+          ],
+          "indexes": [
+            {
+              "name": "pcunTbPessoaJuridicaSobAnalise",
+              "columns": [
+                "CdPessoaSobAnalise"
+              ],
+              "unique": true
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbPessoaSobAnalise",
+          "columns": [
+            {
+              "name": "CdPessoaSobAnalise",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "NmPessoaSobAnalise",
+              "type": "varchar(60)",
+              "nullable": false
+            },
+            {
+              "name": "CdTipoInformacaoComl",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdPapel",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "NuCpfCnpj",
+              "type": "char(15)",
+              "nullable": false
+            },
+            {
+              "name": "TpPessoa",
+              "type": "char(1)",
+              "nullable": false
+            },
+            {
+              "name": "NuProposta",
+              "type": "numeric(9,0)",
+              "nullable": false
+            },
+            {
+              "name": "QtScore",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdTipInformacaoLtLr",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdTipInformacaoSpcSerasa",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "FlAlertaPessoa",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlExCliente",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "PcPartSocio",
+              "type": "numeric(6,2)",
+              "nullable": true
+            },
+            {
+              "name": "FlRisco",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlSerasa",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlSpc",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlConsultaBv",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "StExCliente",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlClienteAtivo",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "NuScoreFim",
+              "type": "numeric(3,1)",
+              "nullable": true
+            },
+            {
+              "name": "QtBehavior",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "DtEntradaSocio",
+              "type": "datetime",
+              "nullable": true
+            },
+            {
+              "name": "CdTipoConfirmacaoLR",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "FlScoreDefinidoPolitica",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "CdVigenciaRegraUnicaPrdaEspra",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdRegraUnicaPerdaEsperada",
+              "type": "int",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "CdPessoaSobAnalise"
+          ],
+          "foreignKeys": [
+            {
+              "name": "FK_TbPessoaSobAnalise_TbPapel",
+              "column": "CdPapel",
+              "references": {
+                "table": "TbPapel",
+                "column": "CdPapel"
+              }
+            },
+            {
+              "name": "FK_TbPessoaSobAnalise_TbRegraUnicaPerdaEsperada",
+              "columns": [
+                "CdRegraUnicaPerdaEsperada",
+                "CdRegraUnicaPerdaEsperada"
+              ],
+              "references": {
+                "table": "TbRegraUnicaPerdaEsperada",
+                "columns": [
+                  "CdVigenciaRegraUnicaPrdaEspra",
+                  "CdRegraUnicaPerdaEsperada"
+                ]
+              }
+            },
+            {
+              "name": "FK_TbPessoaSobAnalise_TbRegraUnicaPerdaEsperada_2",
+              "column": "CdVigenciaRegraUnicaPrdaEspra",
+              "references": {
+                "table": "TbRegraUnicaPerdaEsperada",
+                "column": "CdVigenciaRegraUnicaPrdaEspra"
+              }
+            },
+            {
+              "name": "FK_TbPessoaSobAnalise_TbRegraUnicaPerdaEsperada_3",
+              "column": "CdVigenciaRegraUnicaPrdaEspra",
+              "references": {
+                "table": "TbRegraUnicaPerdaEsperada",
+                "column": "CdVigenciaRegraUnicaPrdaEspra"
+              }
+            }
+          ],
+          "indexes": [
+            {
+              "name": "nnnf1TbPessoaSobAnalise",
+              "columns": [
+                "NuProposta",
+                "CdPapel"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn1TbPessoaSobAnalise",
+              "columns": [
+                "NuCpfCnpj",
+                "CdPapel"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn2TbPessoaSobAnalise",
+              "columns": [
+                "NmPessoaSobAnalise",
+                "CdPapel",
+                "QtScore"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn4TbPesoaSobAnalise",
+              "columns": [
+                "NuScoreFim"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn5TbPessoaSobAnalise",
+              "columns": [
+                "NuProposta",
+                "NuCpfCnpj"
+              ],
+              "unique": false
+            },
+            {
+              "name": "pcunTbPessoaSobAnalise",
+              "columns": [
+                "CdPessoaSobAnalise"
+              ],
+              "unique": true
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbPessoaSobAnaliseTipoTelefone",
+          "columns": [
+            {
+              "name": "CdPessoaSobAnalise",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "CdTipoTelefone",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "CdDdd",
+              "type": "char(3)",
+              "nullable": true
+            },
+            {
+              "name": "NuTelefone",
+              "type": "char(12)",
+              "nullable": false
+            },
+            {
+              "name": "NmContato",
+              "type": "varchar(20)",
+              "nullable": true
+            },
+            {
+              "name": "NuRamal",
+              "type": "char(5)",
+              "nullable": true
+            },
+            {
+              "name": "FlRecebeSms",
+              "type": "char(1)",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "CdPessoaSobAnalise",
+            "CdTipoTelefone"
+          ],
+          "foreignKeys": [
+            {
+              "name": "FK_TbPessoaSobAnaliseTipoTelefone_TbTipoTelefone",
+              "column": "CdTipoTelefone",
+              "references": {
+                "table": "TbTipoTelefone",
+                "column": "CdTipoTelefone"
+              }
+            }
+          ],
+          "indexes": [
+            {
+              "name": "i3TbPesSobAnlsTipoTelef",
+              "columns": [
+                "NuTelefone",
+                "CdDdd"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnf2TbPessoaSobAnaliseTipoTe",
+              "columns": [
+                "CdTipoTelefone"
+              ],
+              "unique": false
+            },
+            {
+              "name": "pcunTbPessoaSobAnaliseTipoTele",
+              "columns": [
+                "CdPessoaSobAnalise",
+                "CdTipoTelefone"
+              ],
+              "unique": true
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbPessoaTipoEnderecoEletronico",
+          "columns": [
+            {
+              "name": "CdPessoaSobAnalise",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "CdTipoEnderecoEletronico",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "DsEmail",
+              "type": "varchar(100)",
+              "nullable": false
+            },
+            {
+              "name": "FlRecebeEmail",
+              "type": "char(1)",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "CdPessoaSobAnalise",
+            "CdTipoEnderecoEletronico"
+          ],
+          "foreignKeys": [
+            {
+              "name": "FK_TbPessoaTipoEnderecoEletronico_TbTipoEnderecoEletronico",
+              "column": "CdTipoEnderecoEletronico",
+              "references": {
+                "table": "TbTipoEnderecoEletronico",
+                "column": "CdTipoEnderecoEletronico"
+              }
+            }
+          ],
+          "indexes": [
+            {
+              "name": "i3_TbPessoaTipoEnderecoEle",
+              "columns": [
+                "DsEmail"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnf2TbPessoaTipoEnderecoElet",
+              "columns": [
+                "CdTipoEnderecoEletronico"
+              ],
+              "unique": false
+            },
+            {
+              "name": "pcunTbPessoaTipoEnderecoEletro",
+              "columns": [
+                "CdPessoaSobAnalise",
+                "CdTipoEnderecoEletronico"
+              ],
+              "unique": true
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbPropFavorecidoComissaoCet",
+          "columns": [
+            {
+              "name": "NuProposta",
+              "type": "numeric(9,0)",
+              "nullable": false
+            },
+            {
+              "name": "NuSeq",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "NuBanco",
+              "type": "char(3)",
+              "nullable": false
+            },
+            {
+              "name": "CdAgencia",
+              "type": "char(4)",
+              "nullable": false
+            },
+            {
+              "name": "DvAgencia",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "NuContaCorrenteFavorecido",
+              "type": "char(20)",
+              "nullable": false
+            },
+            {
+              "name": "TpPagamento",
+              "type": "char(2)",
+              "nullable": false
+            },
+            {
+              "name": "NuCpfCnpj",
+              "type": "char(14)",
+              "nullable": false
+            },
+            {
+              "name": "NmFavorecido",
+              "type": "varchar(60)",
+              "nullable": false
+            },
+            {
+              "name": "VrFavorecido",
+              "type": "numeric(12,2)",
+              "nullable": false
+            },
+            {
+              "name": "FlContaCadastrada",
+              "type": "char(1)",
+              "nullable": false
+            },
+            {
+              "name": "TpConta",
+              "type": "char(1)",
+              "nullable": false
+            },
+            {
+              "name": "CdAcordo",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "CdPeriodicidadePagto",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "VrComissaoParcelada",
+              "type": "numeric(18,2)",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "NuProposta",
+            "CdAcordo",
+            "NuSeq"
+          ],
+          "foreignKeys": [
+            {
+              "name": "FK_TbPropFavorecidoComissaoCet_TbProposta",
+              "column": "NuProposta",
+              "references": {
+                "table": "TbProposta",
+                "column": "NuProposta"
+              }
+            }
+          ],
+          "indexes": [
+            {
+              "name": "pnunTbPropFavorecidoComissaoCe",
+              "columns": [
+                "NuProposta",
+                "CdAcordo",
+                "NuSeq"
+              ],
+              "unique": true
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbPropGarantiaMaqEquip",
+          "columns": [
+            {
+              "name": "NuProposta",
+              "type": "numeric(9,0)",
+              "nullable": false
+            },
+            {
+              "name": "CdPropostaGarantia",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "DsCor",
+              "type": "char(15)",
+              "nullable": true
+            },
+            {
+              "name": "NuPlaca",
+              "type": "char(7)",
+              "nullable": true
+            },
+            {
+              "name": "AaFabricacao",
+              "type": "char(4)",
+              "nullable": true
+            },
+            {
+              "name": "AaModelo",
+              "type": "char(4)",
+              "nullable": true
+            },
+            {
+              "name": "CdMarca",
+              "type": "char(15)",
+              "nullable": true
+            },
+            {
+              "name": "CdModelo",
+              "type": "varchar(60)",
+              "nullable": true
+            },
+            {
+              "name": "VrMercado",
+              "type": "numeric(18,2)",
+              "nullable": false
+            },
+            {
+              "name": "QtAnosIdade",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "NuChassis",
+              "type": "char(17)",
+              "nullable": true
+            },
+            {
+              "name": "DsCategoria",
+              "type": "varchar(20)",
+              "nullable": true
+            },
+            {
+              "name": "FlZeroKm",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlGarantiaAdicional",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "SgUfPlaca",
+              "type": "char(2)",
+              "nullable": true
+            },
+            {
+              "name": "SgUfLicenciamento",
+              "type": "char(2)",
+              "nullable": true
+            },
+            {
+              "name": "NuRenavam",
+              "type": "numeric(11,0)",
+              "nullable": true
+            },
+            {
+              "name": "CdDocumentoAlienacao",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "DsDespachante",
+              "type": "varchar(100)",
+              "nullable": true
+            },
+            {
+              "name": "VrRestricoes",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "FlCpGarantia",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "CdCombustivel",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "StMegadata",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "CdMotivoAlienacao",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "QtCilindradaVeiculo",
+              "type": "numeric(5,0)",
+              "nullable": true
+            },
+            {
+              "name": "CdMolicar",
+              "type": "char(9)",
+              "nullable": true
+            },
+            {
+              "name": "SgUFRegiaoLoja",
+              "type": "char(2)",
+              "nullable": true
+            },
+            {
+              "name": "QtQuilometragemVeiculo",
+              "type": "int",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "CdPropostaGarantia",
+            "NuProposta"
+          ],
+          "foreignKeys": [
+            {
+              "name": "FK_TbPropGarantiaMaqEquip_TbPropostaGarantia",
+              "columns": [
+                "CdPropostaGarantia",
+                "NuProposta"
+              ],
+              "references": {
+                "table": "TbPropostaGarantia",
+                "columns": [
+                  "CdPropostaGarantia",
+                  "NuProposta"
+                ]
+              }
+            }
+          ],
+          "indexes": [
+            {
+              "name": "nnnf1TbPropGarantiaMaqEquip",
+              "columns": [
+                "NuProposta",
+                "CdPropostaGarantia"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn1TbPropGarantiaMaqEquip",
+              "columns": [
+                "NuPlaca"
+              ],
+              "unique": false
+            },
+            {
+              "name": "pcunTbPropGarantiaMaqEquip",
+              "columns": [
+                "CdPropostaGarantia",
+                "NuProposta"
+              ],
+              "unique": true
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbProposta",
+          "columns": [
+            {
+              "name": "NuProposta",
+              "type": "numeric(9,0)",
+              "nullable": false
+            },
+            {
+              "name": "CdOperador",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "CdLoja",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "DtEntradaProposta",
+              "type": "datetime",
+              "nullable": true
+            },
+            {
+              "name": "CdVeiculoLegal",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "CdSubProduto",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "CdPromotor",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdTabelaFinanciamento",
+              "type": "char(5)",
+              "nullable": true
+            },
+            {
+              "name": "VrProposta",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "VrEntrada",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "VrTac",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "PcEntrada",
+              "type": "numeric(8,5)",
+              "nullable": true
+            },
+            {
+              "name": "VrFinanciamento",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "VrOutros",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "PcCoeficiente",
+              "type": "numeric(6,5)",
+              "nullable": false
+            },
+            {
+              "name": "VrPrestacao",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "QtParcelas",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "QtDiasCarencia",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "QtCheques",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "PcMargemLiquida",
+              "type": "numeric(8,4)",
+              "nullable": true
+            },
+            {
+              "name": "FlFluxoIrregular",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlSeguroBvMais",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlAlertaLoja",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "StProposta",
+              "type": "char(2)",
+              "nullable": false
+            },
+            {
+              "name": "DtStatusProposta",
+              "type": "datetime",
+              "nullable": true
+            },
+            {
+              "name": "TpProposta",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "TpCaractFinanciamento",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "CdAprovacao",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdGrupoScore",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "VrPresente",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "VrIofCpmfIss",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "VrCustos",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "VrRetorno",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "VrRetencao",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "VrPdd",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "VrComissao",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "qtalteracao",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "FlSeguro",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlAcessorios",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlDespachante",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlOutros",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "CdColaborador",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "FlAutorizacao",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "NuContrato",
+              "type": "char(11)",
+              "nullable": true
+            },
+            {
+              "name": "StPagamento",
+              "type": "char(1)",
+              "nullable": false
+            },
+            {
+              "name": "VrSpread",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "CdBordero",
+              "type": "char(6)",
+              "nullable": true
+            },
+            {
+              "name": "TxFinanciamento",
+              "type": "numeric(10,7)",
+              "nullable": true
+            },
+            {
+              "name": "NuLotePagto",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "FlRefinanciamento",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlAprovAutomatica",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "DtLiberacao",
+              "type": "datetime",
+              "nullable": true
+            },
+            {
+              "name": "CdMesaCredito",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdFilial",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdVeicLegalMesaCred",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdDigitadorOpWeb",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdDigitadorLjWeb",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "FlRecusaAutomatica",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "CdPessoa",
+              "type": "numeric(12,0)",
+              "nullable": true
+            },
+            {
+              "name": "CdTipoParceiroComercial",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "FlCompraDivida",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlComiteDiretivo",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlClienteNoLocal",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "NuContratoGestao",
+              "type": "numeric(14,0)",
+              "nullable": true
+            },
+            {
+              "name": "DtVencimento",
+              "type": "datetime",
+              "nullable": true
+            },
+            {
+              "name": "FlGeraArquivo",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "TxNet",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "StAverbacao",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlRefinConsignado",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlConsignadoLojista",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "QtDiasCarenciaInss",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "VrSeguroBvMais",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "VrPrestacaoBvMais",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "VrGanhoIR",
+              "type": "numeric(15,10)",
+              "nullable": true
+            },
+            {
+              "name": "TxCetCalculada",
+              "type": "numeric(12,8)",
+              "nullable": true
+            },
+            {
+              "name": "TxPactuada",
+              "type": "numeric(12,4)",
+              "nullable": true
+            },
+            {
+              "name": "CdTbTaxa",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "FlSolicitaCartao",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlSeguroCancelado",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlSeguroContrato",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlAditivoContratual",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "CdTipoMidia",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "DsOutroTipoMidia",
+              "type": "varchar(50)",
+              "nullable": true
+            },
+            {
+              "name": "TpFila",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "CdColaboradorFila",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "DsLogin",
+              "type": "varchar(150)",
+              "nullable": true
+            },
+            {
+              "name": "FlPortabilidade",
+              "type": "char(1)",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "NuProposta"
+          ],
+          "foreignKeys": [
+            {
+              "name": "FK_TbProposta_TbGrupoScore",
+              "column": "CdGrupoScore",
+              "references": {
+                "table": "TbGrupoScore",
+                "column": "CdGrupoScore"
+              }
+            },
+            {
+              "name": "FK_TbProposta_TbMesaCredito",
+              "columns": [
+                "CdFilial",
+                "CdVeicLegalMesaCred"
+              ],
+              "references": {
+                "table": "TbMesaCredito",
+                "columns": [
+                  "CdMesaCredito",
+                  "CdFilial",
+                  "CdVeiculoLegal"
+                ]
+              }
+            },
+            {
+              "name": "FK_TbProposta_TbMesaCredito_2",
+              "column": "CdMesaCredito",
+              "references": {
+                "table": "TbMesaCredito",
+                "column": "CdMesaCredito"
+              }
+            }
+          ],
+          "indexes": [
+            {
+              "name": "nnnf1TbProposta",
+              "columns": [
+                "CdSubProduto",
+                "DtStatusProposta"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnf2TbProposta",
+              "columns": [
+                "CdVeiculoLegal"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnf3TbProposta",
+              "columns": [
+                "CdLoja",
+                "DtEntradaProposta"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnf4TbProposta",
+              "columns": [
+                "CdOperador",
+                "DtEntradaProposta"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnf5TbProposta",
+              "columns": [
+                "CdPromotor"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnf6TbProposta",
+              "columns": [
+                "CdGrupoScore"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnf8TbProposta",
+              "columns": [
+                "DtStatusProposta",
+                "StProposta"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn10TbProposta",
+              "columns": [
+                "CdPessoa",
+                "CdTipoParceiroComercial"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn11TbProposta",
+              "columns": [
+                "DtLiberacao"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn12TbProposta",
+              "columns": [
+                "CdBordero"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn13TbProposta",
+              "columns": [
+                "NuContratoGestao"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn14TbProposta",
+              "columns": [
+                "CdMesaCredito",
+                "CdFilial"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn15TbProposta",
+              "columns": [
+                "StProposta",
+                "CdMesaCredito",
+                "DtEntradaProposta"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn16TbProposta",
+              "columns": [
+                "DtLiberacao",
+                "StPagamento"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn17TbProposta",
+              "columns": [
+                "StPagamento",
+                "DtStatusProposta"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn18TbProposta",
+              "columns": [
+                "CdMesaCredito",
+                "DtEntradaProposta"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn1TbProposta",
+              "columns": [
+                "NuContrato",
+                "FlSeguroBvMais"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn20TbProposta",
+              "columns": [
+                "DsLogin",
+                "DtEntradaProposta"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn7TbProposta",
+              "columns": [
+                "CdAprovacao"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn8TbProposta",
+              "columns": [
+                "DtEntradaProposta"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn8TbProposta1",
+              "columns": [
+                "DtEntradaProposta",
+                "CdPessoa",
+                "StProposta"
+              ],
+              "unique": false
+            },
+            {
+              "name": "pcunTbProposta",
+              "columns": [
+                "NuProposta"
+              ],
+              "unique": true
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbPropostaCusto",
+          "columns": [
+            {
+              "name": "NuProposta",
+              "type": "numeric(9,0)",
+              "nullable": false
+            },
+            {
+              "name": "CdTipoCusto",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "PcCusto",
+              "type": "numeric(5,2)",
+              "nullable": false
+            },
+            {
+              "name": "VrCusto",
+              "type": "numeric(18,2)",
+              "nullable": false
+            },
+            {
+              "name": "FlSomaCusto",
+              "type": "char(1)",
+              "nullable": false
+            },
+            {
+              "name": "CdGrupoCusto",
+              "type": "int",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "NuProposta",
+            "CdTipoCusto"
+          ],
+          "foreignKeys": [
+            {
+              "name": "FK_TbPropostaCusto_TbProposta",
+              "column": "NuProposta",
+              "references": {
+                "table": "TbProposta",
+                "column": "NuProposta"
+              }
+            }
+          ],
+          "indexes": [
+            {
+              "name": "IX_FERNANDO",
+              "columns": [
+                "CdGrupoCusto"
+              ],
+              "unique": false
+            },
+            {
+              "name": "pnunTbPropostaCusto",
+              "columns": [
+                "NuProposta",
+                "CdTipoCusto"
+              ],
+              "unique": true
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbPropostaFavorecido",
+          "columns": [
+            {
+              "name": "NuProposta",
+              "type": "numeric(9,0)",
+              "nullable": false
+            },
+            {
+              "name": "NuSeq",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "NuBanco",
+              "type": "char(3)",
+              "nullable": true
+            },
+            {
+              "name": "CdAgencia",
+              "type": "char(4)",
+              "nullable": true
+            },
+            {
+              "name": "DvAgencia",
+              "type": "char(1)",
+              "nullable": false
+            },
+            {
+              "name": "NuContaCorrenteFavorecido",
+              "type": "varchar(20)",
+              "nullable": true
+            },
+            {
+              "name": "TpPagamento",
+              "type": "char(18)",
+              "nullable": false
+            },
+            {
+              "name": "NuCpfCnpj",
+              "type": "char(14)",
+              "nullable": false
+            },
+            {
+              "name": "NmFavorecido",
+              "type": "varchar(60)",
+              "nullable": true
+            },
+            {
+              "name": "VrFavorecido",
+              "type": "numeric(12,2)",
+              "nullable": true
+            },
+            {
+              "name": "FlTerceiro",
+              "type": "char(1)",
+              "nullable": false
+            },
+            {
+              "name": "NuContratoQuitacao",
+              "type": "varchar(30)",
+              "nullable": true
+            },
+            {
+              "name": "ObFavorecido",
+              "type": "varchar(255)",
+              "nullable": true
+            },
+            {
+              "name": "TpConta",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "CdCpmfMotivo",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdTipoPropostaFavorecido",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdLojaAutorizada",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "VrTarifaQuitacao",
+              "type": "numeric(12,2)",
+              "nullable": true
+            },
+            {
+              "name": "NuContaCorrenteAverbacao",
+              "type": "varchar(20)",
+              "nullable": true
+            },
+            {
+              "name": "DtVencimentoContratoQuitacao",
+              "type": "datetime",
+              "nullable": true
+            },
+            {
+              "name": "NuContratoGestaoQuitacao",
+              "type": "numeric(14,0)",
+              "nullable": true
+            },
+            {
+              "name": "FlRejeitado",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "SqContratoFinanceiroQuitacao",
+              "type": "int",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "NuProposta",
+            "NuSeq"
+          ],
+          "foreignKeys": [
+            {
+              "name": "FK_TbPropostaFavorecido_TbProposta",
+              "column": "NuProposta",
+              "references": {
+                "table": "TbProposta",
+                "column": "NuProposta"
+              }
+            },
+            {
+              "name": "FK_TbPropostaFavorecido_TbTipoPropostaFavorecido_2",
+              "column": "CdTipoPropostaFavorecido",
+              "references": {
+                "table": "TbTipoPropostaFavorecido",
+                "column": "CdTipoPropostaFavorecido"
+              }
+            }
+          ],
+          "indexes": [
+            {
+              "name": "nnn1fTbPropostaFavorecido",
+              "columns": [
+                "CdLojaAutorizada"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn1tbPropostaFavorecido",
+              "columns": [
+                "NuContratoQuitacao",
+                "NuProposta"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn2tbPropostaFavorecido",
+              "columns": [
+                "CdTipoPropostaFavorecido",
+                "NuContratoQuitacao"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn4TbPropostaFavorecido",
+              "columns": [
+                "NuContratoGestaoQuitacao"
+              ],
+              "unique": false
+            },
+            {
+              "name": "pcunTbPropostaFavorecido",
+              "columns": [
+                "NuProposta",
+                "NuSeq"
+              ],
+              "unique": true
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbPropostaFinanceiro",
+          "columns": [
+            {
+              "name": "NuProposta",
+              "type": "numeric(9,0)",
+              "nullable": false
+            },
+            {
+              "name": "TxCetAnualizada",
+              "type": "numeric(12,4)",
+              "nullable": true
+            },
+            {
+              "name": "TxPactuadaAnualizada",
+              "type": "numeric(12,4)",
+              "nullable": true
+            },
+            {
+              "name": "TxGerencial",
+              "type": "numeric(12,4)",
+              "nullable": true
+            },
+            {
+              "name": "PcEntradaMolicar",
+              "type": "numeric(8,5)",
+              "nullable": true
+            },
+            {
+              "name": "VrMercado",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "FlSubsidioTir",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "PcSubsidioTIR",
+              "type": "numeric(8,4)",
+              "nullable": true
+            },
+            {
+              "name": "PcFinanciamentoBem",
+              "type": "numeric(8,5)",
+              "nullable": true
+            },
+            {
+              "name": "PcFinanciamentoMercado",
+              "type": "numeric(8,5)",
+              "nullable": true
+            },
+            {
+              "name": "PcMargemLiquidaVpl",
+              "type": "numeric(8,4)",
+              "nullable": true
+            },
+            {
+              "name": "VrMesesDuration",
+              "type": "numeric(5,2)",
+              "nullable": true
+            },
+            {
+              "name": "CdTaxaRetorno",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "TpOrigemTaxa",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "PcTaxaAlterada",
+              "type": "numeric(10,5)",
+              "nullable": true
+            },
+            {
+              "name": "VrMargemBruta",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "PcTaxaRetorno",
+              "type": "numeric(10,5)",
+              "nullable": true
+            },
+            {
+              "name": "CdTipoCobranca",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "FlIsencaoTaxaCadastro",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "PcLTV",
+              "type": "numeric(10,5)",
+              "nullable": true
+            },
+            {
+              "name": "TxOriginalProposta",
+              "type": "numeric(10,5)",
+              "nullable": true
+            },
+            {
+              "name": "PcMulta",
+              "type": "numeric(5,2)",
+              "nullable": true
+            },
+            {
+              "name": "PcJuroMoratorio",
+              "type": "numeric(5,2)",
+              "nullable": true
+            },
+            {
+              "name": "PcJuroRemuneratorio",
+              "type": "numeric(5,2)",
+              "nullable": true
+            },
+            {
+              "name": "TxCetDiaria",
+              "type": "numeric(12,5)",
+              "nullable": true
+            },
+            {
+              "name": "TxPactuadaDiaria",
+              "type": "numeric(12,5)",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "NuProposta"
+          ],
+          "indexes": [
+            {
+              "name": "pnunTbPropostaFinanceiro",
+              "columns": [
+                "NuProposta"
+              ],
+              "unique": true
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbPropostaGarantia",
+          "columns": [
+            {
+              "name": "NuProposta",
+              "type": "numeric(9,0)",
+              "nullable": false
+            },
+            {
+              "name": "CdPropostaGarantia",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "TpGarantia",
+              "type": "char(1)",
+              "nullable": false
+            },
+            {
+              "name": "VrGarantia",
+              "type": "numeric(18,2)",
+              "nullable": false
+            },
+            {
+              "name": "VrSegundaCotacao",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "DsFonte",
+              "type": "varchar(50)",
+              "nullable": true
+            },
+            {
+              "name": "FlSegundaCotacao",
+              "type": "char(1)",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "CdPropostaGarantia",
+            "NuProposta"
+          ],
+          "indexes": [
+            {
+              "name": "nnnf1TbPropostaGarantia",
+              "columns": [
+                "NuProposta",
+                "CdPropostaGarantia"
+              ],
+              "unique": false
+            },
+            {
+              "name": "pcunTbPropostaGarantia",
+              "columns": [
+                "CdPropostaGarantia",
+                "NuProposta"
+              ],
+              "unique": true
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbPropostaSeguro",
+          "columns": [
+            {
+              "name": "NuProposta",
+              "type": "numeric(9,0)",
+              "nullable": false
+            },
+            {
+              "name": "CdTipoSeguro",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "NuCalculoSeguro",
+              "type": "numeric(10,0)",
+              "nullable": true
+            },
+            {
+              "name": "VrSeguro",
+              "type": "numeric(18,2)",
+              "nullable": false
+            },
+            {
+              "name": "VrPrestacaoSeguro",
+              "type": "numeric(18,2)",
+              "nullable": false
+            },
+            {
+              "name": "CdProdutoSeguro",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "FlSeguroSimples",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "CdCestaSeguro",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdReferenciaSeguradora",
+              "type": "varchar(30)",
+              "nullable": true
+            },
+            {
+              "name": "CdHistoricoSeguradora",
+              "type": "varchar(30)",
+              "nullable": true
+            },
+            {
+              "name": "VrComissao",
+              "type": "numeric(18,2)",
+              "nullable": true
+            },
+            {
+              "name": "QtMesVigenciaSeguro",
+              "type": "int",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "NuProposta",
+            "CdTipoSeguro",
+            "CdProdutoSeguro"
+          ],
+          "foreignKeys": [
+            {
+              "name": "FK_TbPropostaSeguro_TbProposta",
+              "column": "NuProposta",
+              "references": {
+                "table": "TbProposta",
+                "column": "NuProposta"
+              }
+            },
+            {
+              "name": "FK_TbPropostaSeguro_TbTipoSeguro_2",
+              "column": "CdTipoSeguro",
+              "references": {
+                "table": "TbTipoSeguro",
+                "column": "CdTipoSeguro"
+              }
+            }
+          ],
+          "indexes": [
+            {
+              "name": "pcunTbPropostaSeguro",
+              "columns": [
+                "NuProposta",
+                "CdTipoSeguro",
+                "CdProdutoSeguro"
+              ],
+              "unique": true
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbReferenciaBancaria",
+          "columns": [
+            {
+              "name": "CdPessoaSobAnalise",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "CdBanco",
+              "type": "char(3)",
+              "nullable": true
+            },
+            {
+              "name": "NuSeq",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "CdAgenciaBanco",
+              "type": "char(4)",
+              "nullable": true
+            },
+            {
+              "name": "NuContaCorrente",
+              "type": "varchar(20)",
+              "nullable": true
+            },
+            {
+              "name": "DvContaCorrente",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "QtMesesCc",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "TpCc",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "ObReferenciaBancaria",
+              "type": "varchar(255)",
+              "nullable": true
+            },
+            {
+              "name": "NuCheque",
+              "type": "char(10)",
+              "nullable": true
+            },
+            {
+              "name": "DvCheque",
+              "type": "char(1)",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "CdPessoaSobAnalise",
+            "NuSeq"
+          ],
+          "indexes": [
+            {
+              "name": "pcunTbReferenciaBancaria",
+              "columns": [
+                "CdPessoaSobAnalise",
+                "NuSeq"
+              ],
+              "unique": true
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbReferenciaPessoal",
+          "columns": [
+            {
+              "name": "CdPessoaSobAnalise",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "NuSeqRefPessoal",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "NmReferenciaPessoal",
+              "type": "varchar(60)",
+              "nullable": true
+            },
+            {
+              "name": "CdDdd",
+              "type": "char(3)",
+              "nullable": true
+            },
+            {
+              "name": "NuTelefoneRefPessoal",
+              "type": "char(12)",
+              "nullable": true
+            },
+            {
+              "name": "NuRamal",
+              "type": "char(5)",
+              "nullable": true
+            },
+            {
+              "name": "ObReferenciaPessoal",
+              "type": "varchar(255)",
+              "nullable": true
+            },
+            {
+              "name": "CdDddCelular",
+              "type": "char(3)",
+              "nullable": true
+            },
+            {
+              "name": "NuCelularRefPessoal",
+              "type": "char(12)",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "CdPessoaSobAnalise",
+            "NuSeqRefPessoal"
+          ],
+          "indexes": [
+            {
+              "name": "pcunTbReferenciaPessoal",
+              "columns": [
+                "CdPessoaSobAnalise",
+                "NuSeqRefPessoal"
+              ],
+              "unique": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "database": "DBCOR",
+      "tipo": "Sybase",
+      "tables": [
+        {
+          "schema": "dbo",
+          "name": "TbAgenteCertificado",
+          "columns": [
+            {
+              "name": "CdAgenteCertificado",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "CdTipoEntradaAgenteCertificado",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "CdTipoCertificacao",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "CdInstituicaoCertificadora",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "DtExpiracaoCertificado",
+              "type": "datetime",
+              "nullable": false
+            },
+            {
+              "name": "NmAgenteCertificado",
+              "type": "varchar(60)",
+              "nullable": false
+            },
+            {
+              "name": "DtExameAgenteCertificado",
+              "type": "datetime",
+              "nullable": false
+            },
+            {
+              "name": "NuCpfAgenteCertificado",
+              "type": "char(14)",
+              "nullable": false
+            },
+            {
+              "name": "FlAtivo",
+              "type": "char(1)",
+              "nullable": false
+            },
+            {
+              "name": "DtInclusao",
+              "type": "datetime",
+              "nullable": false
+            },
+            {
+              "name": "CdColaborador",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "CdAgenteCertificadoCRCP",
+              "type": "numeric(12,0)",
+              "nullable": false
+            },
+            {
+              "name": "FlAgenteCertificadoSuspenso",
+              "type": "char(1)",
+              "nullable": false
+            },
+            {
+              "name": "DtAlteracao",
+              "type": "datetime",
+              "nullable": true
+            },
+            {
+              "name": "CdAgenteCertificadoCRCPNuclea",
+              "type": "numeric(16,0)",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "CdAgenteCertificado"
+          ],
+          "foreignKeys": [
+            {
+              "name": "FK_TbAgenteCertificado_TbTipoEntradaAgenteCertificado",
+              "column": "CdTipoEntradaAgenteCertificado",
+              "references": {
+                "table": "TbTipoEntradaAgenteCertificado",
+                "column": "CdTipoEntradaAgenteCertificado"
+              }
+            }
+          ],
+          "indexes": [
+            {
+              "name": "I3TbAgenteCertificado",
+              "columns": [
+                "CdTipoEntradaAgenteCertificado",
+                "FlAtivo",
+                "CdAgenteCertificado"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn1TbAgenteCertificado",
+              "columns": [
+                "CdAgenteCertificadoCRCP"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn2TbAgenteCertificado",
+              "columns": [
+                "NuCpfAgenteCertificado",
+                "CdAgenteCertificado"
+              ],
+              "unique": false
+            },
+            {
+              "name": "pnunTbAgenteCertificado",
+              "columns": [
+                "CdAgenteCertificado"
+              ],
+              "unique": true
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbProduto",
+          "columns": [
+            {
+              "name": "CdProduto",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "NmProduto",
+              "type": "varchar(50)",
+              "nullable": false
+            },
+            {
+              "name": "DtInclusao",
+              "type": "datetime",
+              "nullable": false
+            },
+            {
+              "name": "DtAlteracao",
+              "type": "datetime",
+              "nullable": true
+            },
+            {
+              "name": "CdColaborador",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "NuConexao",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "NmImagemAssociada",
+              "type": "varchar(50)",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "CdProduto"
+          ],
+          "indexes": [
+            {
+              "name": "nnnn1TbProduto",
+              "columns": [
+                "NuConexao"
+              ],
+              "unique": false
+            },
+            {
+              "name": "pnunTbProduto",
+              "columns": [
+                "CdProduto"
+              ],
+              "unique": true
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbSubProduto",
+          "columns": [
+            {
+              "name": "CdSubProduto",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "DsSubProduto",
+              "type": "varchar(40)",
+              "nullable": false
+            },
+            {
+              "name": "DsProdutoSCC",
+              "type": "char(2)",
+              "nullable": true
+            },
+            {
+              "name": "Pcloc",
+              "type": "numeric(10,5)",
+              "nullable": true
+            },
+            {
+              "name": "CdModalidadeProduto",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdTipoBem",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdProduto",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "FlAtivo",
+              "type": "char(1)",
+              "nullable": false
+            },
+            {
+              "name": "CdSubProdutoPreAprovado",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "FlOfertaMultiProduto",
+              "type": "char(1)",
+              "nullable": false
+            }
+          ],
+          "primaryKey": [
+            "CdSubProduto"
+          ],
+          "indexes": [
+            {
+              "name": "nnnn1TbSubProduto",
+              "columns": [
+                "CdProduto"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn2TbSubProduto",
+              "columns": [
+                "CdModalidadeProduto"
+              ],
+              "unique": false
+            },
+            {
+              "name": "pnTbSubProduto",
+              "columns": [
+                "CdSubProduto"
+              ],
+              "unique": true
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbModalidadeProduto",
+          "columns": [
+            {
+              "name": "CdProduto",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "CdModalidadeProduto",
+              "type": "int",
+              "nullable": false
+            },
+            {
+              "name": "NmModalidadeProduto",
+              "type": "varchar(40)",
+              "nullable": false
+            },
+            {
+              "name": "DsProdutoScc",
+              "type": "char(2)",
+              "nullable": true
+            },
+            {
+              "name": "DtInclusao",
+              "type": "datetime",
+              "nullable": false
+            },
+            {
+              "name": "DtAlteracao",
+              "type": "datetime",
+              "nullable": true
+            },
+            {
+              "name": "CdColaborador",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "FlValidaCep",
+              "type": "char(1)",
+              "nullable": false
+            },
+            {
+              "name": "CdModalidadeProdutoBacen",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "FlAtivo",
+              "type": "char(1)",
+              "nullable": false
+            },
+            {
+              "name": "FlDesativaGestao",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlCalculoROE",
+              "type": "char(1)",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "CdProduto",
+            "CdModalidadeProduto"
+          ],
+          "indexes": [
+            {
+              "name": "IDX_modalidade_produto",
+              "columns": [
+                "CdProduto",
+                "CdModalidadeProduto"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn1TbModalidadeProduto",
+              "columns": [
+                "CdModalidadeProduto"
+              ],
+              "unique": false
+            },
+            {
+              "name": "pnunTbModalidadeProduto",
+              "columns": [
+                "CdProduto",
+                "CdModalidadeProduto"
+              ],
+              "unique": true
+            }
+          ]
+        },
+        {
+          "schema": "dbo",
+          "name": "TbPessoa",
+          "columns": [
+            {
+              "name": "CdPessoa",
+              "type": "numeric(12,0)",
+              "nullable": false
+            },
+            {
+              "name": "DsEnderecoEletronico",
+              "type": "varchar(100)",
+              "nullable": true
+            },
+            {
+              "name": "DtPrimeiroCadastro",
+              "type": "datetime",
+              "nullable": false
+            },
+            {
+              "name": "NmPessoa",
+              "type": "varchar(60)",
+              "nullable": false
+            },
+            {
+              "name": "DsSite",
+              "type": "varchar(255)",
+              "nullable": true
+            },
+            {
+              "name": "NuCpfCnpj",
+              "type": "char(14)",
+              "nullable": true
+            },
+            {
+              "name": "TpPessoa",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlLiminar",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlPermiteSms",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlPossuiBemImovel",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlPossuiBemMovel",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlPossuiAnimal",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlRecebeEmail",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlPossuiTelefoneCelular",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "FlAtivo",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "CdColaborador",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "CdTipoPropriedadeBem",
+              "type": "int",
+              "nullable": true
+            },
+            {
+              "name": "FlRecebeSms",
+              "type": "char(1)",
+              "nullable": true
+            },
+            {
+              "name": "TsAlteracao",
+              "type": "varbinary(8)",
+              "nullable": true
+            },
+            {
+              "name": "DtAlteracao",
+              "type": "datetime",
+              "nullable": true
+            },
+            {
+              "name": "DsLoginDatabase",
+              "type": "varchar(30)",
+              "nullable": true
+            },
+            {
+              "name": "NmHostName",
+              "type": "varchar(30)",
+              "nullable": true
+            }
+          ],
+          "primaryKey": [
+            "CdPessoa"
+          ],
+          "indexes": [
+            {
+              "name": "nnnn1TbPessoa",
+              "columns": [
+                "NuCpfCnpj"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn2TbPessoa",
+              "columns": [
+                "NmPessoa"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn3TbPessoa",
+              "columns": [
+                "DtPrimeiroCadastro"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn4TbPessoa",
+              "columns": [
+                "CdPessoa",
+                "NuCpfCnpj"
+              ],
+              "unique": false
+            },
+            {
+              "name": "nnnn5TbPessoa",
+              "columns": [
+                "DtAlteracao"
+              ],
+              "unique": false
+            },
+            {
+              "name": "pcuntbPessoa",
+              "columns": [
+                "CdPessoa"
+              ],
+              "unique": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

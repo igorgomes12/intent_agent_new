@@ -1,0 +1,52 @@
+{
+  "table": "TbModalidadeProduto",
+  "fields": {
+    "CdModalidadeProduto": {
+      "description": "Código da Modalidade do Produto (tipo de veículo/bem financiado)",
+      "values": {
+        "motos": "5",
+        "moto": "5",
+        "motocicleta": "5",
+        "motocicletas": "5",
+        "vans": "7",
+        "van": "7",
+        "micro-ônibus": "7",
+        "micro-onibus": "7",
+        "microônibus": "7",
+        "microonibus": "7",
+        "micro ônibus": "7",
+        "micro onibus": "7",
+        "veículos leves": "8",
+        "veiculos leves": "8",
+        "leves": "8",
+        "leve": "8",
+        "carros": "8",
+        "carro": "8",
+        "automóvel": "8",
+        "automovel": "8",
+        "automóveis": "8",
+        "automoveis": "8",
+        "veículos pesados": "9",
+        "veiculos pesados": "9",
+        "pesados": "9",
+        "pesado": "9",
+        "caminhão": "9",
+        "caminhao": "9",
+        "caminhões": "9",
+        "caminhoes": "9",
+        "caminhonete": "9",
+        "caminhonetes": "9"
+      }
+    }
+  },
+  "related_tables": {
+    "TbSubProduto": {
+      "relationship": "TbModalidadeProduto.CdModalidadeProduto = TbSubProduto.CdModalidadeProduto",
+      "description": "Define o subproduto específico"
+    },
+    "TbProduto": {
+      "relationship": "TbModalidadeProduto.CdProduto = TbProduto.CdProduto",
+      "description": "Define o produto financeiro (CDC com/sem garantia)"
+    }
+  }
+}

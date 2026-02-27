@@ -1,0 +1,57 @@
+{
+  "table": "TbProposta",
+  "fields": {
+    "StProposta": {
+      "description": "Status da Proposta",
+      "values": {
+        "aprovada": "AP",
+        "aprovadas": "AP",
+        "negada": "N",
+        "negadas": "N",
+        "recusada": "N",
+        "recusadas": "N",
+        "pendente": "P",
+        "pendentes": "P",
+        "cancelada": "C",
+        "canceladas": "C"
+      }
+    }
+  },
+  "special_filters": {
+    "proposta_com_garantia": {
+      "description": "Proposta que possui garantia registrada",
+      "implementation": "INNER JOIN DBCRED.dbo.TbPropostaGarantia ON DBCRED.dbo.TbProposta.NuProposta = DBCRED.dbo.TbPropostaGarantia.NuProposta",
+      "keywords": ["proposta com garantia", "propostas com garantia", "que tem garantia", "que possui garantia", "com garantia registrada"]
+    },
+    "proposta_sem_garantia": {
+      "description": "Proposta que NÃO possui garantia registrada",
+      "implementation": "LEFT JOIN DBCRED.dbo.TbPropostaGarantia ON DBCRED.dbo.TbProposta.NuProposta = DBCRED.dbo.TbPropostaGarantia.NuProposta WHERE DBCRED.dbo.TbPropostaGarantia.NuProposta IS NULL",
+      "keywords": ["proposta sem garantia", "propostas sem garantia", "que não tem garantia", "sem garantia registrada"]
+    },
+    "proposta_com_seguro": {
+      "description": "Proposta que possui seguro",
+      "implementation": "INNER JOIN DBCRED.dbo.TbPropostaSeguro ON DBCRED.dbo.TbProposta.NuProposta = DBCRED.dbo.TbPropostaSeguro.NuProposta",
+      "keywords": ["proposta com seguro", "propostas com seguro", "que tem seguro", "que possui seguro", "seguradas"]
+    },
+    "proposta_sem_seguro": {
+      "description": "Proposta que NÃO possui seguro",
+      "implementation": "LEFT JOIN DBCRED.dbo.TbPropostaSeguro ON DBCRED.dbo.TbProposta.NuProposta = DBCRED.dbo.TbPropostaSeguro.NuProposta WHERE DBCRED.dbo.TbPropostaSeguro.NuProposta IS NULL",
+      "keywords": ["proposta sem seguro", "propostas sem seguro", "que não tem seguro", "sem seguro"]
+    }
+  },
+  "related_tables": {
+    "TbPropostaGarantia": {
+      "relationship": "TbProposta.NuProposta = TbPropostaGarantia.NuProposta",
+      "description": "Garantias registradas na proposta (LEFT JOIN para verificar existência)"
+    },
+    "TbPropostaSeguro": {
+      "relationship": "TbProposta.NuProposta = TbPropostaSeguro.NuProposta",
+      "description": "Seguros contratados na proposta (LEFT JOIN para verificar existência)"
+    },
+    "TbPropGarantiaMaqEquip": {
+      "relationship": "TbProposta.NuProposta = TbPropGarantiaMaqEquip.NuProposta",
+      "description": "Detalhes do veículo/equipamento - usar APENAS para impressão de contratos"
+    }
+  },
+  "notes": "IMPORTANTE: 'CDC com garantia' (TbProduto.CdProduto=12) é DIFERENTE de 'proposta com garantia' (TbPropostaGarantia)"
+}

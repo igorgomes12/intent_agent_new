@@ -1,0 +1,97 @@
+{
+  "table": "TbSubProduto",
+  "database": "DBCOR",
+  "schema": "dbo",
+  "fields": {
+    "CdSubProduto": {
+      "type": "int",
+      "nullable": false,
+      "primaryKey": true,
+      "description": "Código do SubProduto (tipo específico de financiamento)",
+      "values": {
+        "cdc veículos": "1",
+        "cdc veiculos": "1",
+        "cdc": "1"
+      }
+    },
+    "DsSubProduto": {
+      "type": "varchar(40)",
+      "nullable": false,
+      "description": "Descrição do SubProduto"
+    },
+    "DsProdutoSCC": {
+      "type": "char(2)",
+      "nullable": true,
+      "description": "Descrição do Produto no sistema SCC"
+    },
+    "Pcloc": {
+      "type": "numeric(10,5)",
+      "nullable": true,
+      "description": "Percentual de locação"
+    },
+    "CdModalidadeProduto": {
+      "type": "int",
+      "nullable": true,
+      "foreignKey": "TbModalidadeProduto.CdModalidadeProduto",
+      "description": "Código da Modalidade do Produto (tipo de veículo)"
+    },
+    "CdTipoBem": {
+      "type": "int",
+      "nullable": true,
+      "description": "Código do Tipo de Bem"
+    },
+    "CdProduto": {
+      "type": "int",
+      "nullable": true,
+      "foreignKey": "TbProduto.CdProduto",
+      "description": "Código do Produto (CDC com/sem garantia)"
+    },
+    "FlAtivo": {
+      "type": "char(1)",
+      "nullable": false,
+      "description": "Flag indicando se o SubProduto está ativo"
+    },
+    "CdSubProdutoPreAprovado": {
+      "type": "int",
+      "nullable": true,
+      "description": "Código do SubProduto Pré-Aprovado"
+    },
+    "FlOfertaMultiProduto": {
+      "type": "char(1)",
+      "nullable": false,
+      "description": "Flag indicando se permite oferta de múltiplos produtos"
+    }
+  },
+  "indexes": [
+    {
+      "name": "nnnn1TbSubProduto",
+      "columns": ["CdProduto"],
+      "unique": false
+    },
+    {
+      "name": "nnnn2TbSubProduto",
+      "columns": ["CdModalidadeProduto"],
+      "unique": false
+    },
+    {
+      "name": "pnTbSubProduto",
+      "columns": ["CdSubProduto"],
+      "unique": true
+    }
+  ],
+  "related_tables": {
+    "TbProposta": {
+      "relationship": "TbProposta.CdSubProduto = TbSubProduto.CdSubProduto",
+      "description": "Propostas que utilizam este SubProduto"
+    },
+    "TbModalidadeProduto": {
+      "relationship": "TbSubProduto.CdModalidadeProduto = TbModalidadeProduto.CdModalidadeProduto AND TbSubProduto.CdProduto = TbModalidadeProduto.CdProduto",
+      "description": "Define a modalidade do produto (tipo de veículo: motos, vans, leves, pesados) - chave composta"
+    },
+    "TbProduto": {
+      "relationship": "TbSubProduto.CdProduto = TbProduto.CdProduto",
+      "description": "Define o produto financeiro principal (CDC com/sem garantia)"
+    }
+  },
+  "notes": "IMPORTANTE: TbSubProduto é a tabela intermediária entre TbProposta e TbProduto/TbModalidadeProduto. O JOIN com TbModalidadeProduto requer chave composta (CdModalidadeProduto + CdProduto)"
+}
